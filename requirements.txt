@@ -5,3 +5,4 @@ seaborn
 textblob
 snscrape
 streamlit
+vaderSentiment

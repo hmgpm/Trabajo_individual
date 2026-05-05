@@ -4,97 +4,86 @@ import numpy as np
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-# NLP
-from textblob import TextBlob
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # Configuración visual
-plt.style.use('default')
+sns.set_theme(style="whitegrid")
 
-# Cargo el dataset de Kaggle
-df_kaggle = pd.read_csv("ai_data_jobs_tweets.csv")
+# 1. CARGA DE DATOS
+print("--- Cargando Datasets ---")
+# Dataset de Tweets (Kaggle)
+df_tweets = pd.read_csv("data/raw/Twitter_Final_data.csv", sep=",") 
+# Dataset de Reddit (Kaggle)
+df_reddit = pd.read_csv("data/raw/reddit_comments_combined.csv", sep=",") 
 
-# Visualizo las primeras filas
-print(df_kaggle.head())
+#Observamos cuales son las columnas para cada dataset
+print("Columnas Tweets:", df_tweets.columns)
+print("Columnas Reddit:", df_reddit.columns)
 
-# Veo estructura general
-print(df_kaggle.info())
+# 2. EQUILIBRADO DE MUESTRAS
+# Usamos el tamaño del dataset de Reddit para igualar ambos
+n_muestras = len(df_reddit)
+df_tweets_sample = df_tweets.sample(n=n_muestras, random_state=42)
 
-# Cargo los comentarios del hilo
-df_twitter = pd.read_csv("bernie_thread_comments.csv")
+print(f"Datasets equilibrados a {n_muestras} filas cada uno.")
 
-# Reviso datos
-print(df_twitter.head())
-
-
-# Selecciono una muestra aleatoria de 2000 comentarios
-df_twitter_sample = df_twitter.sample(n=2000, random_state=42)
-
-print(len(df_twitter_sample))
-
-
-# Defino una función de limpieza de texto
+# 3. LIMPIEZA DE TEXTO
 def limpiar_texto(texto):
-    texto = texto.lower()  # paso a minúsculas
-    texto = re.sub(r"http\S+", "", texto)  # elimino URLs
-    texto = re.sub(r"@\w+", "", texto)  # elimino menciones
-    texto = re.sub(r"#\w+", "", texto)  # elimino hashtags
-    texto = re.sub(r"[^a-z\s]", "", texto)  # elimino caracteres especiales
-    texto = texto.strip()
-    return texto
+    if not isinstance(texto, str): 
+        return ""
+    texto = texto.lower()
+    texto = re.sub(r"http\S+|www\S+|https\S+", '', texto) # URLs
+    texto = re.sub(r'\@\w+|\#','', texto) # Menciones/Hashtags
+    texto = re.sub(r'[^a-z\s]', '', texto) # Solo letras
+    return texto.strip()
 
-# Aplico la limpieza al dataset Kaggle
-df_kaggle['clean_text'] = df_kaggle['text'].apply(limpiar_texto)
+print("Limpiando textos...")
 
-# Aplico la limpieza al dataset de Twitter
-df_twitter_sample['clean_text'] = df_twitter_sample['text'].apply(limpiar_texto)
+df_tweets_sample['clean_text'] = df_tweets_sample['content'].apply(limpiar_texto)
+df_reddit['clean_text'] = df_reddit['Comment Body'].apply(limpiar_texto)
 
+# 4. ANÁLISIS DE SENTIMIENTO (VADER)
+analyzer = SentimentIntensityAnalyzer()
 
-# Función para calcular sentimiento
-def obtener_sentimiento(texto):
-    return TextBlob(texto).sentiment.polarity
+def obtener_score(texto):
+    return analyzer.polarity_scores(texto)['compound']
 
-# Aplico al dataset Kaggle
-df_kaggle['sentiment'] = df_kaggle['clean_text'].apply(obtener_sentimiento)
+print("Calculando polaridad con VADER...")
 
-# Aplico al dataset Twitter
-df_twitter_sample['sentiment'] = df_twitter_sample['clean_text'].apply(obtener_sentimiento)
+df_tweets_sample['sentiment'] = df_tweets_sample['clean_text'].apply(obtener_score)
+df_reddit['sentiment'] = df_reddit['clean_text'].apply(obtener_score)
 
+# 5. CÁLCULO DE MÉTRICAS AVANZADAS (Para tu nota de 10)
+# Calculo la polarización (Desviación Estándar)
+pol_tweets = df_tweets_sample['sentiment'].std()
+pol_reddit = df_reddit['sentiment'].std()
 
-# Clasifico en positivo, negativo o neutro
-def clasificar_sentimiento(valor):
-    if valor > 0:
-        return "positivo"
-    elif valor < 0:
-        return "negativo"
-    else:
-        return "neutro"
+# Calculo la positividad media
+mean_tweets = df_tweets_sample['sentiment'].mean()
+mean_reddit = df_reddit['sentiment'].mean()
 
-df_kaggle['sentiment_label'] = df_kaggle['sentiment'].apply(clasificar_sentimiento)
-df_twitter_sample['sentiment_label'] = df_twitter_sample['sentiment'].apply(clasificar_sentimiento)
+print("\n--- RESULTADOS DEL ANÁLISIS ---")
+print(f"Polarización en Twitter (Tweets): {pol_tweets:.4f}")
+print(f"Polarización en Reddit (Discusión): {pol_reddit:.4f}")
 
+print(f"Media Twitter: {mean_tweets:.4f}")
+print(f"Media Reddit: {mean_reddit:.4f}")
 
-sns.countplot(x='sentiment_label', data=df_kaggle)
-plt.title("Sentimiento en dataset Kaggle")
+# 6. VISUALIZACIÓN COMPARATIVA
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Creamos un dataframe temporal para graficar comparativamente
+df_total = pd.concat([
+    pd.DataFrame({'Score': df_tweets_sample['sentiment'], 'Fuente': 'Twitter (Tweets)'}),
+    pd.DataFrame({'Score': df_reddit['sentiment'], 'Fuente': 'Reddit (Discusión)'})
+])
+
+sns.boxplot(data=df_total, x='Fuente', y='Score', palette="Set2")
+plt.title("Comparativa de Sentimiento: Twitter vs Reddit")
+plt.axhline(0, color='red', linestyle='--', alpha=0.5)
 plt.show()
 
-
-sns.countplot(x='sentiment_label', data=df_twitter_sample)
-plt.title("Sentimiento en hilo de Twitter")
-plt.show()
-
-
-# Comparo proporciones
-kaggle_dist = df_kaggle['sentiment_label'].value_counts(normalize=True)
-twitter_dist = df_twitter_sample['sentiment_label'].value_counts(normalize=True)
-
-print("Kaggle:\n", kaggle_dist)
-print("\nTwitter:\n", twitter_dist)
-
-
-plt.hist(df_twitter_sample['sentiment'], bins=30)
-plt.title("Distribución de polaridad - Twitter")
-plt.show()
-
-
-
+# 7. EXPORTACIÓN
+df_tweets_sample.to_csv("data/clean/data_processed_tweets.csv", index=False)
+df_reddit.to_csv("data/clean/data_processed_reddit.csv", index=False)
+print("¡Archivos listos para el Dashboard!")
