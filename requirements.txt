@@ -1,8 +1,25 @@
-pandas
-numpy
-matplotlib
-seaborn
-textblob
-snscrape
-streamlit
-vaderSentiment
+# Core Data Processing
+pandas==2.0.3
+numpy==1.24.3
+
+# NLP y Sentiment Analysis
+vaderSentiment==3.3.2
+nltk==3.8.1
+
+# Visualización
+matplotlib==3.7.2
+seaborn==0.12.2
+plotly==5.17.0
+
+# Dashboard
+streamlit==1.27.0
+
+# Network Analysis
+networkx==3.1
+
+# Utilidades
+Pillow==10.0.0
+
+# Jupyter (opcional, para notebooks)
+jupyter==1.0.0
+ipykernel==6.25.2
