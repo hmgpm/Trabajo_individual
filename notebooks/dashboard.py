@@ -295,54 +295,190 @@ st.download_button(
 st.markdown("---")
 
 # ==============================================================================
-# SECCIÓN 6: ANÁLISIS DE RED (GEPHI)
+# SECCIÓN 6: ANÁLISIS DE REDES SEMÁNTICAS (GEPHI)
 # ==============================================================================
 st.markdown('<h2 class="section-header">6. Análisis de Redes Semánticas</h2>', unsafe_allow_html=True)
 
 st.markdown("""
-### Red de Co-ocurrencia de Palabras
+### Visualización de Redes de Co-ocurrencia
 
-La red semántica construida mediante **Gephi** visualiza las relaciones entre conceptos clave 
-en las conversaciones sobre IA y empleo. Los nodos representan palabras y las aristas indican 
-que esas palabras aparecen juntas en los mismos textos. El color de cada conexión refleja el 
-sentimiento asociado.
+Para complementar el análisis de sentimiento tradicional, se construyeron grafos semánticos 
+mediante **Gephi**. 
 
-**Métricas de red calculadas:**
-- **Centralidad de grado**: Identifica los conceptos más mencionados
-- **Modularidad**: Detecta comunidades temáticas diferenciadas
-- **Betweenness centrality**: Encuentra palabras que conectan diferentes temas
+En estas redes:
+- Cada **nodo** representa una palabra o concepto relevante.
+- Cada **arista** representa una co-ocurrencia entre palabras dentro de un mismo comentario.
+- El tamaño de los nodos refleja la importancia o frecuencia del término.
+- La estructura de la red permite detectar comunidades, conceptos centrales y relaciones semánticas.
 
-**Para visualizar la red:**
-1. Abrir Gephi y cargar el archivo `gephi_global_con_sentimiento.csv`
-2. Aplicar el algoritmo ForceAtlas2 para la distribución espacial
-3. Colorear nodos según `Sentiment_Type` (positivo/negativo/neutro)
-4. Ajustar tamaño de nodos según grado de conexión
-5. Aplicar algoritmo de detección de comunidades (Louvain)
+Este enfoque permite pasar de un análisis basado únicamente en porcentajes y métricas 
+a una representación estructural de cómo se relacionan las opiniones públicas sobre IA y empleo.
 """)
 
-# Placeholder para imágenes de Gephi (el usuario las añadirá después)
-st.info("""
-**Instrucciones para añadir tus grafos de Gephi:**
+st.markdown("---")
 
-Una vez hayas generado tus visualizaciones en Gephi, guárdalas como PNG con estos nombres 
-y colócalas en la carpeta `data/clean/`:
+# ==============================================================================
+# GRAFO GLOBAL
+# ==============================================================================
+st.markdown("## Grafo Global de Conversaciones")
 
-- `grafo_global.png` - Red completa con todas las conexiones
-- `grafo_comunidades.png` - Red coloreada por comunidades detectadas
-- `grafo_sentimiento.png` - Red coloreada por tipo de sentimiento
-- `grafo_centralidad.png` - Red con tamaño de nodos según centralidad
+col1, col2 = st.columns([2,1])
 
-Luego descomenta las líneas correspondientes en este dashboard para mostrarlas.
+with col1:
+    mostrar_imagen(
+        "grafo_global.png",
+        caption="Red global de relaciones semánticas sobre IA y empleo"
+    )
+
+with col2:
+    st.markdown("""
+### Interpretación del Grafo Global
+
+El grafo global muestra los conceptos más importantes dentro de las conversaciones analizadas.
+
+#### Hallazgos principales:
+- **artificial intelligence**
+- **machine learning**
+- **data science**
+- **big data**
+
+son los nodos más centrales de la red.
+
+Esto indica que las discusiones sobre IA y empleo giran principalmente en torno a:
+- automatización,
+- ciencia de datos,
+- aprendizaje automático,
+- y oportunidades laborales tecnológicas.
+
+La alta densidad de conexiones refleja una conversación muy interrelacionada entre conceptos.
 """)
 
-# Descomentar estas líneas cuando tengas los grafos
-# col1, col2 = st.columns(2)
-# with col1:
-#     st.markdown("### Red Global")
-#     mostrar_imagen("grafo_global.png", caption="Red completa de co-ocurrencias")
-# with col2:
-#     st.markdown("### Comunidades Detectadas")
-#     mostrar_imagen("grafo_comunidades.png", caption="Grupos temáticos identificados")
+st.markdown("---")
+
+# ==============================================================================
+# GRAFOS POR SENTIMIENTO
+# ==============================================================================
+st.markdown("## Redes Semánticas por Tipo de Sentimiento")
+
+st.markdown("""
+Para comprender mejor la estructura de las opiniones, la red fue dividida según el sentimiento 
+detectado en los comentarios: positivo, neutro y negativo.
+""")
+
+# ---------------- POSITIVO ----------------
+st.markdown("### Sentimiento Positivo")
+
+col1, col2 = st.columns([1.5,1])
+
+with col1:
+    mostrar_imagen(
+        "positivo.png",
+        caption="Red semántica de comentarios positivos"
+    )
+
+with col2:
+    st.success("""
+#### Interpretación
+
+La red positiva está dominada por conceptos relacionados con:
+- oportunidades laborales,
+- aprendizaje tecnológico,
+- crecimiento profesional,
+- y herramientas de IA.
+
+Palabras como:
+- machine learning
+- data science
+- artificial intelligence
+- python
+
+aparecen altamente conectadas, indicando que gran parte del discurso positivo 
+asocia la IA con innovación y nuevas oportunidades de empleo.
+""")
+
+st.markdown("---")
+
+# ---------------- NEUTRO ----------------
+st.markdown("### Sentimiento Neutro")
+
+col1, col2 = st.columns([1.5,1])
+
+with col1:
+    mostrar_imagen(
+        "neutro.png",
+        caption="Red semántica de comentarios neutros"
+    )
+
+with col2:
+    st.info("""
+#### Interpretación
+
+La red neutra presenta conexiones más simples y menos densas.
+
+Los usuarios tienden a:
+- describir tecnologías,
+- mencionar herramientas,
+- o compartir información objetiva.
+
+Los conceptos principales siguen siendo:
+- data science,
+- machine learning,
+- big data,
+- artificial intelligence.
+
+Sin embargo, el tono es principalmente descriptivo y no emocional.
+""")
+
+st.markdown("---")
+
+# ---------------- NEGATIVO ----------------
+st.markdown("### Sentimiento Negativo")
+
+col1, col2 = st.columns([1.5,1])
+
+with col1:
+    mostrar_imagen(
+        "negativo.png",
+        caption="Red semántica de comentarios negativos"
+    )
+
+with col2:
+    st.error("""
+#### Interpretación
+
+La red negativa muestra una estructura más fragmentada y polarizada.
+
+Las conexiones reflejan preocupaciones relacionadas con:
+- sustitución laboral,
+- automatización,
+- incertidumbre profesional,
+- y cambios en el mercado de trabajo.
+
+Aunque los mismos conceptos tecnológicos siguen siendo centrales,
+las relaciones entre nodos reflejan una percepción más crítica sobre 
+el impacto de la IA en el empleo.
+""")
+
+st.markdown("---")
+
+# ==============================================================================
+# CONCLUSIÓN DEL ANÁLISIS DE RED
+# ==============================================================================
+st.markdown("## Conclusiones del Análisis de Redes")
+
+st.markdown(f"""
+El análisis mediante grafos permitió identificar no solo el sentimiento predominante, 
+sino también la estructura interna de las conversaciones.
+
+### Principales conclusiones:
+- Los conceptos tecnológicos forman el núcleo de todas las discusiones.
+- Las redes positivas son más densas y conectadas.
+- Las redes negativas muestran mayor fragmentación y polarización.
+- El análisis estructural complementa los resultados estadísticos obtenidos previamente.
+
+Este enfoque demuestra cómo el análisis de redes semánticas puede enriquecer 
+el estudio de opinión pública sobre inteligencia artificial y empleo.
+""")
 
 st.markdown("---")
 
