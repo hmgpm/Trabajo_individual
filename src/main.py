@@ -26,6 +26,7 @@ warnings.filterwarnings('ignore')
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
 
 # Análisis de sentimiento
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -67,10 +68,10 @@ IMAGES_DIR = BASE_DIR / "data" / "imagenes"
 CLEAN_DATA_DIR.mkdir(parents=True, exist_ok=True)
 IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
-print(f"📁 Directorio base: {BASE_DIR}")
-print(f"📊 Datos raw: {RAW_DATA_DIR}")
-print(f"✅ Datos clean: {CLEAN_DATA_DIR}")
-print(f"🎨 Imágenes: {IMAGES_DIR}\n")
+print(f" Directorio base: {BASE_DIR}")
+print(f" Datos raw: {RAW_DATA_DIR}")
+print(f" Datos clean: {CLEAN_DATA_DIR}")
+print(f" Imágenes: {IMAGES_DIR}\n")
 
 # ============================================================================
 # 1. CARGA DE DATOS
@@ -84,19 +85,19 @@ def cargar_datos():
         tuple: (df_twitter, df_reddit)
     """
     print("=" * 70)
-    print("📥 PASO 1: CARGANDO DATOS")
+    print(" PASO 1: CARGANDO DATOS")
     print("=" * 70)
     
     # Cargar Twitter
     twitter_path = RAW_DATA_DIR / "Twitter_Final_data.csv"
-    print(f"\n🐦 Cargando Twitter desde: {twitter_path}")
+    print(f"\n Cargando Twitter desde: {twitter_path}")
     df_twitter = pd.read_csv(twitter_path)
     print(f"   ✓ Twitter: {len(df_twitter):,} filas, {len(df_twitter.columns)} columnas")
     print(f"   Columnas: {list(df_twitter.columns)}")
     
     # Cargar Reddit
     reddit_path = RAW_DATA_DIR / "reddit_comments_combined.csv"
-    print(f"\n🔴 Cargando Reddit desde: {reddit_path}")
+    print(f"\n Cargando Reddit desde: {reddit_path}")
     df_reddit = pd.read_csv(reddit_path)
     print(f"   ✓ Reddit: {len(df_reddit):,} filas, {len(df_reddit.columns)} columnas")
     print(f"   Columnas: {list(df_reddit.columns)}")
@@ -153,30 +154,24 @@ def limpiar_texto(texto):
     return texto
 
 
-def eliminar_stopwords(texto, idioma='english'):
-    """
-    Elimina stopwords de un texto.
-    
-    Args:
-        texto (str): Texto limpio
-        idioma (str): Idioma de las stopwords
-        
-    Returns:
-        str: Texto sin stopwords
-    """
+lemmatizer = WordNetLemmatizer()
+
+def lemmatize_text(texto):
+    """Lematiza y elimina stopwords (como en el notebook)."""
     if not texto:
         return ""
-    
-    stop_words = set(stopwords.words(idioma))
-    
-    # Añadir stopwords personalizadas (muy comunes pero poco informativas)
-    stop_words_custom = {'ai', 'ia', 'like', 'just', 'get', 'one', 'would', 'could'}
-    stop_words.update(stop_words_custom)
-    
+    stop_words = set(stopwords.words('english')).union({
+        'ai', 'ia', 'use', 'make', 'get', 'would', 'could',
+        'like', 'just', 'one', 'also', 'really', 'even', 'way',
+        'see', 'say', 'need', 'well', 'going', 'want', 'time',
+        'much', 'thing', 'people', 'think', 'know'
+    })
     palabras = texto.split()
-    palabras_filtradas = [p for p in palabras if p not in stop_words and len(p) > 2]
-    
-    return ' '.join(palabras_filtradas)
+    palabras_limpias = [
+        lemmatizer.lemmatize(p) for p in palabras
+        if p not in stop_words and len(p) > 2
+    ]
+    return " ".join(palabras_limpias)
 
 
 def preprocesar_datasets(df_twitter, df_reddit):
@@ -206,7 +201,7 @@ def preprocesar_datasets(df_twitter, df_reddit):
     if columna_twitter is None:
         raise ValueError(f"No se encontró columna de texto en Twitter. Columnas: {df_twitter.columns}")
     
-    print(f"\n🐦 Twitter: usando columna '{columna_twitter}'")
+    print(f"\n Twitter: usando columna '{columna_twitter}'")
     
     # Reddit: identificar columna de texto
     posibles_columnas_reddit = ['Comment Body', 'body', 'text', 'comment']
@@ -219,19 +214,19 @@ def preprocesar_datasets(df_twitter, df_reddit):
     if columna_reddit is None:
         raise ValueError(f"No se encontró columna de texto en Reddit. Columnas: {df_reddit.columns}")
     
-    print(f"🔴 Reddit: usando columna '{columna_reddit}'")
+    print(f" Reddit: usando columna '{columna_reddit}'")
     
     # Limpieza Twitter
     print("\n   Limpiando textos de Twitter...")
     df_twitter['texto_original'] = df_twitter[columna_twitter]
     df_twitter['texto_limpio'] = df_twitter[columna_twitter].apply(limpiar_texto)
-    df_twitter['texto_sin_stopwords'] = df_twitter['texto_limpio'].apply(eliminar_stopwords)
+    df_twitter['texto_sin_stopwords'] = df_twitter['texto_limpio'].apply(lemmatize_text)
     
     # Limpieza Reddit
     print("   Limpiando textos de Reddit...")
     df_reddit['texto_original'] = df_reddit[columna_reddit]
     df_reddit['texto_limpio'] = df_reddit[columna_reddit].apply(limpiar_texto)
-    df_reddit['texto_sin_stopwords'] = df_reddit['texto_limpio'].apply(eliminar_stopwords)
+    df_reddit['texto_sin_stopwords'] = df_reddit['texto_limpio'].apply(lemmatize_text)
     
     # Eliminar textos vacíos
     df_twitter = df_twitter[df_twitter['texto_limpio'].str.len() > 10].copy()
@@ -481,7 +476,7 @@ def unificar_datasets(df_twitter, df_reddit):
     # Unificar
     df_unificado = pd.concat([df_twitter_final, df_reddit_final], ignore_index=True)
     
-    print(f"\n✅ Dataset unificado:")
+    print(f"\n Dataset unificado:")
     print(f"   • Twitter: {len(df_twitter_final):,} registros")
     print(f"   • Reddit:  {len(df_reddit_final):,} registros")
     print(f"   • TOTAL:   {len(df_unificado):,} registros")
@@ -561,13 +556,13 @@ def exportar_para_gephi(df, columna_texto='texto_sin_stopwords'):
     output_path = CLEAN_DATA_DIR / "gephi_global_con_sentimiento.csv"
     df_gephi.to_csv(output_path, index=False)
     
-    print(f"\n✅ Archivo Gephi guardado: {output_path}")
+    print(f"\n Archivo Gephi guardado: {output_path}")
     print(f"   • {len(df_gephi):,} conexiones (aristas)")
     print(f"   • {len(set(df_gephi['Source']) | set(df_gephi['Target'])):,} palabras únicas (nodos)")
     
     # Mostrar top conexiones
     top_conexiones = df_gephi.nlargest(10, 'Weight')[['Source', 'Target', 'Weight', 'Sentiment']]
-    print("\n📊 Top 10 conexiones más frecuentes:")
+    print("\n Top 10 conexiones más frecuentes:")
     print(top_conexiones.to_string(index=False))
 
 
@@ -583,7 +578,7 @@ def generar_visualizaciones(df):
         df: DataFrame unificado
     """
     print("\n" + "=" * 70)
-    print("📊 PASO 8: GENERANDO VISUALIZACIONES")
+    print(" PASO 8: GENERANDO VISUALIZACIONES")
     print("=" * 70)
     
     sns.set_theme(style="whitegrid", palette="husl")
@@ -768,16 +763,45 @@ def main():
         # 9. Exportar datos finales
         exportar_datos(df_unificado, df_twitter, df_reddit)
         
-        print("\n" + "=" * 70)
-        print("✅ ANÁLISIS COMPLETADO EXITOSAMENTE")
-        print("=" * 70)
-        print(f"\n📁 Los archivos están listos en:")
-        print(f"   • Datos limpios: {CLEAN_DATA_DIR}")
-        print(f"   • Visualizaciones: {IMAGES_DIR}")
-        print("\n🎯 Próximos pasos:")
-        print("   1. Importar 'gephi_global_con_sentimiento.csv' en Gephi")
-        print("   2. Ejecutar 'streamlit run notebooks/dashboard.py'")
-        
+        # ===== PRECÁLCULO DE TÓPICOS PARA DASHBOARD =====
+        if BERT_AVAILABLE:
+            try:
+                print("\n⏳ Precalculando tópicos (BERT + KMeans) para el dashboard...")
+                from sklearn.cluster import KMeans
+                from sentence_transformers import SentenceTransformer
+                model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+                textos = df_unificado['texto_limpio'].fillna("").tolist()
+                if len(textos) > 50:
+                    embeddings = model.encode(textos, show_progress_bar=False, batch_size=32)
+                    n_clusters = min(5, len(textos) // 10 + 1)
+                    kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+                    clusters = kmeans.fit_predict(embeddings)
+                    df_unificado['topic_precalc'] = clusters
+                    # Guardar con la columna adicional
+                    df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
+                    print("   ✔ Tópicos precalculados guardados en 'datos_unificados.csv'")
+                else:
+                    print("   ⚠️ Pocos textos para topic modelling. Se omitirá.")
+                    df_unificado['topic_precalc'] = -1
+                    df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
+            except Exception as e:
+                print(f"   ❌ Error precalculando tópicos: {e}")
+                df_unificado['topic_precalc'] = -1
+                df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
+        else:
+            print("\n⚠️ BERT no disponible, no se precalcularán tópicos. El dashboard usará TF-IDF.")
+
+            
+            print("\n" + "=" * 70)
+            print(" ANÁLISIS COMPLETADO EXITOSAMENTE")
+            print("=" * 70)
+            print(f"\n Los archivos están listos en:")
+            print(f"   • Datos limpios: {CLEAN_DATA_DIR}")
+            print(f"   • Visualizaciones: {IMAGES_DIR}")
+            print("\n Próximos pasos:")
+            print("   1. Importar 'gephi_global_con_sentimiento.csv' en Gephi")
+            print("   2. Ejecutar 'streamlit run notebooks/dashboard.py'")
+            
     except Exception as e:
         print(f"\n❌ ERROR: {e}")
         import traceback
