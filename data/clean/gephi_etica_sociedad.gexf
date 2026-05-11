@@ -1,0 +1,1024 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2026-05-11">
+    <creator>NetworkX 3.6.1</creator>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static" name="">
+    <attributes mode="static" class="edge">
+      <attribute id="2" title="pmi" type="double" />
+      <attribute id="3" title="sentiment_score" type="double" />
+      <attribute id="4" title="sentiment_label" type="string" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="weighted_degree" type="long" />
+      <attribute id="1" title="betweenness" type="double" />
+    </attributes>
+    <nodes>
+      <node id="dont" label="dont">
+        <attvalues>
+          <attvalue for="0" value="55" />
+          <attvalue for="1" value="0.06293072649347953" />
+        </attvalues>
+      </node>
+      <node id="using" label="using">
+        <attvalues>
+          <attvalue for="0" value="31" />
+          <attvalue for="1" value="0.08290229413711196" />
+        </attvalues>
+      </node>
+      <node id="language" label="language">
+        <attvalues>
+          <attvalue for="0" value="46" />
+          <attvalue for="1" value="0.022093695777906302" />
+        </attvalues>
+      </node>
+      <node id="openai" label="openai">
+        <attvalues>
+          <attvalue for="0" value="52" />
+          <attvalue for="1" value="0.08991491714163778" />
+        </attvalues>
+      </node>
+      <node id="amp" label="amp">
+        <attvalues>
+          <attvalue for="0" value="373" />
+          <attvalue for="1" value="0.02084023339084068" />
+        </attvalues>
+      </node>
+      <node id="rss" label="rss">
+        <attvalues>
+          <attvalue for="0" value="441" />
+          <attvalue for="1" value="0.04879181771894323" />
+        </attvalues>
+      </node>
+      <node id="cybersecurity" label="cybersecurity">
+        <attvalues>
+          <attvalue for="0" value="16" />
+          <attvalue for="1" value="0.038369607600376825" />
+        </attvalues>
+      </node>
+      <node id="machine" label="machine">
+        <attvalues>
+          <attvalue for="0" value="93" />
+          <attvalue for="1" value="0.07224473307469259" />
+        </attvalues>
+      </node>
+      <node id="articles" label="articles">
+        <attvalues>
+          <attvalue for="0" value="161" />
+          <attvalue for="1" value="0.0499380848571132" />
+        </attvalues>
+      </node>
+      <node id="humanity" label="humanity">
+        <attvalues>
+          <attvalue for="0" value="20" />
+          <attvalue for="1" value="0.012920120814857656" />
+        </attvalues>
+      </node>
+      <node id="trending" label="trending">
+        <attvalues>
+          <attvalue for="0" value="432" />
+          <attvalue for="1" value="0.001804560711443302" />
+        </attvalues>
+      </node>
+      <node id="help" label="help">
+        <attvalues>
+          <attvalue for="0" value="23" />
+          <attvalue for="1" value="0.03703407853205424" />
+        </attvalues>
+      </node>
+      <node id="risk" label="risk">
+        <attvalues>
+          <attvalue for="0" value="31" />
+          <attvalue for="1" value="0.00844058475637423" />
+        </attvalues>
+      </node>
+      <node id="article" label="article">
+        <attvalues>
+          <attvalue for="0" value="358" />
+          <attvalue for="1" value="0.05265703706999256" />
+        </attvalues>
+      </node>
+      <node id="bot" label="bot">
+        <attvalues>
+          <attvalue for="0" value="430" />
+          <attvalue for="1" value="0.001804560711443302" />
+        </attvalues>
+      </node>
+      <node id="learning" label="learning">
+        <attvalues>
+          <attvalue for="0" value="86" />
+          <attvalue for="1" value="0.03682013742742488" />
+        </attvalues>
+      </node>
+      <node id="future" label="future">
+        <attvalues>
+          <attvalue for="0" value="26" />
+          <attvalue for="1" value="0.024116751444686668" />
+        </attvalues>
+      </node>
+      <node id="society" label="society">
+        <attvalues>
+          <attvalue for="0" value="22" />
+          <attvalue for="1" value="0.01157439052175894" />
+        </attvalues>
+      </node>
+      <node id="jobs" label="jobs">
+        <attvalues>
+          <attvalue for="0" value="108" />
+          <attvalue for="1" value="0.11770940860009685" />
+        </attvalues>
+      </node>
+      <node id="human" label="human">
+        <attvalues>
+          <attvalue for="0" value="103" />
+          <attvalue for="1" value="0.0" />
+        </attvalues>
+      </node>
+      <node id="still" label="still">
+        <attvalues>
+          <attvalue for="0" value="83" />
+          <attvalue for="1" value="0.08498562840668104" />
+        </attvalues>
+      </node>
+      <node id="hiring" label="hiring">
+        <attvalues>
+          <attvalue for="0" value="41" />
+          <attvalue for="1" value="0.039696339797554374" />
+        </attvalues>
+      </node>
+      <node id="privacy" label="privacy">
+        <attvalues>
+          <attvalue for="0" value="36" />
+          <attvalue for="1" value="0.03621619795708864" />
+        </attvalues>
+      </node>
+      <node id="gpt" label="gpt">
+        <attvalues>
+          <attvalue for="0" value="50" />
+          <attvalue for="1" value="0.023625632127656424" />
+        </attvalues>
+      </node>
+      <node id="models" label="models">
+        <attvalues>
+          <attvalue for="0" value="56" />
+          <attvalue for="1" value="0.027381001065211585" />
+        </attvalues>
+      </node>
+      <node id="ethics" label="ethics">
+        <attvalues>
+          <attvalue for="0" value="27" />
+          <attvalue for="1" value="0.10499440580412239" />
+        </attvalues>
+      </node>
+      <node id="machinedriven" label="machinedriven">
+        <attvalues>
+          <attvalue for="0" value="450" />
+          <attvalue for="1" value="0.0698491042620597" />
+        </attvalues>
+      </node>
+      <node id="work" label="work">
+        <attvalues>
+          <attvalue for="0" value="116" />
+          <attvalue for="1" value="0.16423264095328868" />
+        </attvalues>
+      </node>
+      <node id="learn" label="learn">
+        <attvalues>
+          <attvalue for="0" value="31" />
+          <attvalue for="1" value="0.02886606570817097" />
+        </attvalues>
+      </node>
+      <node id="today" label="today">
+        <attvalues>
+          <attvalue for="0" value="124" />
+          <attvalue for="1" value="0.06459348493761449" />
+        </attvalues>
+      </node>
+      <node id="humans" label="humans">
+        <attvalues>
+          <attvalue for="0" value="61" />
+          <attvalue for="1" value="0.0" />
+        </attvalues>
+      </node>
+      <node id="replace" label="replace">
+        <attvalues>
+          <attvalue for="0" value="70" />
+          <attvalue for="1" value="0.00033738191632928474" />
+        </attvalues>
+      </node>
+      <node id="bias" label="bias">
+        <attvalues>
+          <attvalue for="0" value="39" />
+          <attvalue for="1" value="0.05786326434099714" />
+        </attvalues>
+      </node>
+      <node id="security" label="security">
+        <attvalues>
+          <attvalue for="0" value="43" />
+          <attvalue for="1" value="0.013367203346960432" />
+        </attvalues>
+      </node>
+      <node id="read" label="read">
+        <attvalues>
+          <attvalue for="0" value="111" />
+          <attvalue for="1" value="0.003948975001606581" />
+        </attvalues>
+      </node>
+      <node id="thanks" label="thanks">
+        <attvalues>
+          <attvalue for="0" value="33" />
+          <attvalue for="1" value="0.05790718503269113" />
+        </attvalues>
+      </node>
+      <node id="new" label="new">
+        <attvalues>
+          <attvalue for="0" value="154" />
+          <attvalue for="1" value="0.0238699559549762" />
+        </attvalues>
+      </node>
+      <node id="technology" label="technology">
+        <attvalues>
+          <attvalue for="0" value="25" />
+          <attvalue for="1" value="0.02242239317138103" />
+        </attvalues>
+      </node>
+      <node id="risks" label="risks">
+        <attvalues>
+          <attvalue for="0" value="40" />
+          <attvalue for="1" value="0.03700115673799885" />
+        </attvalues>
+      </node>
+      <node id="trust" label="trust">
+        <attvalues>
+          <attvalue for="0" value="19" />
+          <attvalue for="1" value="0.04768862866028857" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="dont" target="using" id="0" weight="3">
+        <attvalues>
+          <attvalue for="2" value="2.531511861839751" />
+          <attvalue for="3" value="0.9856333333333334" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="dont" target="jobs" id="1" weight="10">
+        <attvalues>
+          <attvalue for="2" value="4.177329567947762" />
+          <attvalue for="3" value="0.46782" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="dont" target="risk" id="2" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.091599693921878" />
+          <attvalue for="3" value="0.11971999999999998" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="dont" target="ethics" id="3" weight="8">
+        <attvalues>
+          <attvalue for="2" value="2.826255127400884" />
+          <attvalue for="3" value="0.201325" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="dont" target="work" id="4" weight="12">
+        <attvalues>
+          <attvalue for="2" value="4.172430768534923" />
+          <attvalue for="3" value="0.6298083333333334" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="dont" target="learn" id="5" weight="9">
+        <attvalues>
+          <attvalue for="2" value="3.5739471281601483" />
+          <attvalue for="3" value="0.6574222222222222" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="dont" target="trust" id="6" weight="8">
+        <attvalues>
+          <attvalue for="2" value="3.1302613142909834" />
+          <attvalue for="3" value="0.2521625" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="using" target="machine" id="7" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.538464622481518" />
+          <attvalue for="3" value="0.27280000000000004" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="using" target="help" id="8" weight="3">
+        <attvalues>
+          <attvalue for="2" value="2.399061565816102" />
+          <attvalue for="3" value="0.2487" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="using" target="learning" id="9" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.5259736782983215" />
+          <attvalue for="3" value="0.30068" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="using" target="work" id="10" weight="6">
+        <attvalues>
+          <attvalue for="2" value="3.3493085306190022" />
+          <attvalue for="3" value="0.6150166666666667" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="using" target="still" id="11" weight="4">
+        <attvalues>
+          <attvalue for="2" value="3.09240022758205" />
+          <attvalue for="3" value="0.74015" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="using" target="risks" id="12" weight="6">
+        <attvalues>
+          <attvalue for="2" value="2.4245966579232396" />
+          <attvalue for="3" value="-0.024183333333333334" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="language" target="openai" id="13" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.7994278348070636" />
+          <attvalue for="3" value="0.24858000000000002" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="language" target="models" id="14" weight="23">
+        <attvalues>
+          <attvalue for="2" value="5.539927782108416" />
+          <attvalue for="3" value="0.18967391304347825" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="language" target="still" id="15" weight="3">
+        <attvalues>
+          <attvalue for="2" value="2.7746599296581214" />
+          <attvalue for="3" value="0.8777333333333334" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="language" target="gpt" id="16" weight="15">
+        <attvalues>
+          <attvalue for="2" value="3.8829925514461943" />
+          <attvalue for="3" value="0.24272" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="openai" target="risks" id="17" weight="17">
+        <attvalues>
+          <attvalue for="2" value="3.1838724138145342" />
+          <attvalue for="3" value="-0.005870588235294115" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="openai" target="gpt" id="18" weight="11">
+        <attvalues>
+          <attvalue for="2" value="2.59501178848217" />
+          <attvalue for="3" value="-0.04735454545454545" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="openai" target="article" id="19" weight="13">
+        <attvalues>
+          <attvalue for="2" value="2.5818363997344367" />
+          <attvalue for="3" value="-0.1428076923076923" />
+          <attvalue for="4" value="negativo" />
+        </attvalues>
+      </edge>
+      <edge source="openai" target="thanks" id="20" weight="6">
+        <attvalues>
+          <attvalue for="2" value="2.422637804885183" />
+          <attvalue for="3" value="0.3873666666666667" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="amp" target="rss" id="21" weight="86">
+        <attvalues>
+          <attvalue for="2" value="4.922623521873115" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="amp" target="trending" id="22" weight="87">
+        <attvalues>
+          <attvalue for="2" value="4.922623521873114" />
+          <attvalue for="3" value="0.059535632183908054" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="amp" target="machinedriven" id="23" weight="86">
+        <attvalues>
+          <attvalue for="2" value="4.922623521873115" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="amp" target="security" id="24" weight="17">
+        <attvalues>
+          <attvalue for="2" value="1.6881582682360916" />
+          <attvalue for="3" value="0.5470411764705883" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="amp" target="bot" id="25" weight="86">
+        <attvalues>
+          <attvalue for="2" value="4.841093636376517" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="amp" target="privacy" id="26" weight="11">
+        <attvalues>
+          <attvalue for="2" value="2.007015709163487" />
+          <attvalue for="3" value="0.22265454545454544" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="rss" target="cybersecurity" id="27" weight="4">
+        <attvalues>
+          <attvalue for="2" value="1.301342784765874" />
+          <attvalue for="3" value="0.016149999999999998" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="rss" target="bot" id="28" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.662756395118004" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="rss" target="article" id="29" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.148183222288246" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="rss" target="machinedriven" id="30" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.7442862806146024" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="rss" target="trending" id="31" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.727607539467972" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="rss" target="ethics" id="32" weight="7">
+        <attvalues>
+          <attvalue for="2" value="1.9077850128974818" />
+          <attvalue for="3" value="0.1606857142857143" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="cybersecurity" target="machine" id="33" weight="4">
+        <attvalues>
+          <attvalue for="2" value="1.6190830826898033" />
+          <attvalue for="3" value="0.15105" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="cybersecurity" target="help" id="34" weight="4">
+        <attvalues>
+          <attvalue for="2" value="1.8947175253032305" />
+          <attvalue for="3" value="0.625475" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="cybersecurity" target="machinedriven" id="35" weight="4">
+        <attvalues>
+          <attvalue for="2" value="1.301342784765874" />
+          <attvalue for="3" value="0.016149999999999998" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="machine" target="learning" id="36" weight="52">
+        <attvalues>
+          <attvalue for="2" value="5.319522800830895" />
+          <attvalue for="3" value="0.17562884615384616" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="machine" target="bias" id="37" weight="10">
+        <attvalues>
+          <attvalue for="2" value="2.860392717368881" />
+          <attvalue for="3" value="-0.045399999999999996" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="machine" target="hiring" id="38" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.957689918723796" />
+          <attvalue for="3" value="0.13798" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="machine" target="risk" id="39" weight="7">
+        <attvalues>
+          <attvalue for="2" value="2.168941782455043" />
+          <attvalue for="3" value="-0.20235714285714287" />
+          <attvalue for="4" value="negativo" />
+        </attvalues>
+      </edge>
+      <edge source="machine" target="learn" id="40" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.3178654829681213" />
+          <attvalue for="3" value="0.44954" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="machine" target="thanks" id="41" weight="6">
+        <attvalues>
+          <attvalue for="2" value="2.5808998888019152" />
+          <attvalue for="3" value="0.4795833333333333" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="articles" target="humanity" id="42" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.4631919032358174" />
+          <attvalue for="3" value="0.23835" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="articles" target="read" id="43" weight="34">
+        <attvalues>
+          <attvalue for="2" value="3.8301772731085193" />
+          <attvalue for="3" value="0.3459235294117647" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="articles" target="gpt" id="44" weight="10">
+        <attvalues>
+          <attvalue for="2" value="2.4763672919835504" />
+          <attvalue for="3" value="0.31588000000000005" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="articles" target="new" id="45" weight="71">
+        <attvalues>
+          <attvalue for="2" value="4.680053218599037" />
+          <attvalue for="3" value="0.19889718309859156" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="articles" target="risks" id="46" weight="10">
+        <attvalues>
+          <attvalue for="2" value="2.437196694702873" />
+          <attvalue for="3" value="-0.022670000000000003" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="articles" target="today" id="47" weight="32">
+        <attvalues>
+          <attvalue for="2" value="5.1947030673099155" />
+          <attvalue for="3" value="0.367071875" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="humanity" target="future" id="48" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.983198962116204" />
+          <attvalue for="3" value="0.5800000000000001" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="humanity" target="technology" id="49" weight="4">
+        <attvalues>
+          <attvalue for="2" value="3.284854661977305" />
+          <attvalue for="3" value="0.44782500000000003" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="humanity" target="read" id="50" weight="8">
+        <attvalues>
+          <attvalue for="2" value="2.531210326664468" />
+          <attvalue for="3" value="0.04507500000000002" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="trending" target="bot" id="51" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.646077653971374" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="trending" target="article" id="52" weight="87">
+        <attvalues>
+          <attvalue for="2" value="5.148183222288246" />
+          <attvalue for="3" value="0.059535632183908054" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="trending" target="machinedriven" id="53" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.727607539467972" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="help" target="risk" id="54" weight="7">
+        <attvalues>
+          <attvalue for="2" value="2.4445762250684706" />
+          <attvalue for="3" value="0.20308571428571429" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="help" target="work" id="55" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.4550179717901175" />
+          <attvalue for="3" value="0.3705" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="help" target="learn" id="56" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.5934999255815487" />
+          <attvalue for="3" value="0.43796" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="risk" target="hiring" id="57" weight="12">
+        <attvalues>
+          <attvalue for="2" value="3.6288090631946663" />
+          <attvalue for="3" value="-0.09510833333333334" />
+          <attvalue for="4" value="negativo" />
+        </attvalues>
+      </edge>
+      <edge source="article" target="bot" id="58" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.0666533367916475" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="article" target="machinedriven" id="59" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.148183222288246" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="bot" target="machinedriven" id="60" weight="86">
+        <attvalues>
+          <attvalue for="2" value="5.662756395118004" />
+          <attvalue for="3" value="0.06961627906976744" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="learning" target="thanks" id="61" weight="6">
+        <attvalues>
+          <attvalue for="2" value="2.246480849731356" />
+          <attvalue for="3" value="0.5154666666666666" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="learning" target="hiring" id="62" weight="7">
+        <attvalues>
+          <attvalue for="2" value="3.1086977068234782" />
+          <attvalue for="3" value="0.15877142857142856" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="learning" target="privacy" id="63" weight="6">
+        <attvalues>
+          <attvalue for="2" value="1.9375306088422035" />
+          <attvalue for="3" value="0.13006666666666666" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="learning" target="bias" id="64" weight="10">
+        <attvalues>
+          <attvalue for="2" value="2.5259736782983215" />
+          <attvalue for="3" value="-0.045399999999999996" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="future" target="society" id="65" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.313347563808535" />
+          <attvalue for="3" value="0.35562499999999997" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="future" target="still" id="66" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.8880417290758635" />
+          <attvalue for="3" value="0.76345" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="future" target="work" id="67" weight="9">
+        <attvalues>
+          <attvalue for="2" value="3.7299125328339726" />
+          <attvalue for="3" value="0.35031111111111113" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="future" target="technology" id="68" weight="5">
+        <attvalues>
+          <attvalue for="2" value="3.338293920938766" />
+          <attvalue for="3" value="0.70332" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="society" target="jobs" id="69" weight="6">
+        <attvalues>
+          <attvalue for="2" value="3.0115206749776817" />
+          <attvalue for="3" value="0.15414999999999998" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="society" target="today" id="70" weight="8">
+        <attvalues>
+          <attvalue for="2" value="3.313347563808535" />
+          <attvalue for="3" value="0.3297375" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="society" target="technology" id="71" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.6150032636696356" />
+          <attvalue for="3" value="0.32" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="humans" id="72" weight="13">
+        <attvalues>
+          <attvalue for="2" value="2.76442781301291" />
+          <attvalue for="3" value="0.43615384615384617" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="work" id="73" weight="14">
+        <attvalues>
+          <attvalue for="2" value="4.480553063897255" />
+          <attvalue for="3" value="0.5134" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="still" id="74" weight="10">
+        <attvalues>
+          <attvalue for="2" value="4.323180434411217" />
+          <attvalue for="3" value="0.26738999999999996" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="human" id="75" weight="23">
+        <attvalues>
+          <attvalue for="2" value="2.4869461099904244" />
+          <attvalue for="3" value="0.3317086956521739" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="technology" id="76" weight="6">
+        <attvalues>
+          <attvalue for="2" value="3.71453893722055" />
+          <attvalue for="3" value="0.8245666666666667" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="trust" id="77" weight="3">
+        <attvalues>
+          <attvalue for="2" value="1.8009536890380238" />
+          <attvalue for="3" value="0.16836666666666666" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="new" id="78" weight="13">
+        <attvalues>
+          <attvalue for="2" value="2.863963486563824" />
+          <attvalue for="3" value="0.5594692307692308" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="jobs" target="replace" id="79" weight="10">
+        <attvalues>
+          <attvalue for="2" value="4.38591618975918" />
+          <attvalue for="3" value="0.15786" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="human" target="still" id="80" weight="24">
+        <attvalues>
+          <attvalue for="2" value="2.6084676470921386" />
+          <attvalue for="3" value="0.3081833333333333" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="human" target="replace" id="81" weight="30">
+        <attvalues>
+          <attvalue for="2" value="2.9931314973274636" />
+          <attvalue for="3" value="0.22244999999999998" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="human" target="work" id="82" weight="26">
+        <attvalues>
+          <attvalue for="2" value="2.3958906668278708" />
+          <attvalue for="3" value="0.4517307692307692" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="still" target="models" id="83" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.8880417290758635" />
+          <attvalue for="3" value="0.663" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="still" target="work" id="84" weight="12">
+        <attvalues>
+          <attvalue for="2" value="4.318281634998378" />
+          <attvalue for="3" value="0.3931166666666666" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="still" target="replace" id="85" weight="6">
+        <attvalues>
+          <attvalue for="2" value="3.7090715880305445" />
+          <attvalue for="3" value="0.26105" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="still" target="humans" id="86" weight="16">
+        <attvalues>
+          <attvalue for="2" value="3.124109087309388" />
+          <attvalue for="3" value="0.26665625" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="hiring" target="privacy" id="87" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.69117494415504" />
+          <attvalue for="3" value="0.068" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="hiring" target="trust" id="88" weight="4">
+        <attvalues>
+          <attvalue for="2" value="2.4044362777299777" />
+          <attvalue for="3" value="0.7001" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="hiring" target="security" id="89" weight="8">
+        <attvalues>
+          <attvalue for="2" value="2.42235818572724" />
+          <attvalue for="3" value="0.562675" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="privacy" target="security" id="90" weight="9">
+        <attvalues>
+          <attvalue for="2" value="1.6435085105247256" />
+          <attvalue for="3" value="0.5785333333333333" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="privacy" target="thanks" id="91" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.0513505083993655" />
+          <attvalue for="3" value="0.1251" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="gpt" target="models" id="92" weight="14">
+        <attvalues>
+          <attvalue for="2" value="3.481801178034179" />
+          <attvalue for="3" value="0.04773571428571429" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="models" target="risks" id="93" weight="7">
+        <attvalues>
+          <attvalue for="2" value="2.442630580753501" />
+          <attvalue for="3" value="-0.105" />
+          <attvalue for="4" value="negativo" />
+        </attvalues>
+      </edge>
+      <edge source="models" target="bias" id="94" weight="8">
+        <attvalues>
+          <attvalue for="2" value="2.919068624696488" />
+          <attvalue for="3" value="0.013275000000000006" />
+          <attvalue for="4" value="neutro" />
+        </attvalues>
+      </edge>
+      <edge source="ethics" target="machinedriven" id="95" weight="7">
+        <attvalues>
+          <attvalue for="2" value="1.9077850128974818" />
+          <attvalue for="3" value="0.1606857142857143" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="ethics" target="work" id="96" weight="5">
+        <attvalues>
+          <attvalue for="2" value="1.9659798910674968" />
+          <attvalue for="3" value="0.17332" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="machinedriven" target="security" id="97" weight="9">
+        <attvalues>
+          <attvalue for="2" value="1.5922831871695524" />
+          <attvalue for="3" value="0.4454333333333333" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="work" target="technology" id="98" weight="6">
+        <attvalues>
+          <attvalue for="2" value="3.4466057319739174" />
+          <attvalue for="3" value="0.76085" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="work" target="replace" id="99" weight="7">
+        <attvalues>
+          <attvalue for="2" value="3.6034098116827886" />
+          <attvalue for="3" value="0.6742142857142858" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="work" target="humans" id="100" weight="15">
+        <attvalues>
+          <attvalue for="2" value="2.702945485233703" />
+          <attvalue for="3" value="0.5460533333333333" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="learn" target="today" id="101" weight="12">
+        <attvalues>
+          <attvalue for="2" value="3.961503891016885" />
+          <attvalue for="3" value="0.4575" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="today" target="read" id="102" weight="33">
+        <attvalues>
+          <attvalue for="2" value="4.30711561009702" />
+          <attvalue for="3" value="0.3341787878787879" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="today" target="new" id="103" weight="34">
+        <attvalues>
+          <attvalue for="2" value="4.13777599922508" />
+          <attvalue for="3" value="0.4037941176470588" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="today" target="bias" id="104" weight="5">
+        <attvalues>
+          <attvalue for="2" value="2.2409967195838507" />
+          <attvalue for="3" value="0.19758" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="humans" target="replace" id="105" weight="17">
+        <attvalues>
+          <attvalue for="2" value="3.2743076839076903" />
+          <attvalue for="3" value="0.2411352941176471" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="bias" target="thanks" id="106" weight="6">
+        <attvalues>
+          <attvalue for="2" value="2.1658623895230713" />
+          <attvalue for="3" value="0.32435" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="read" target="new" id="107" weight="36">
+        <attvalues>
+          <attvalue for="2" value="2.7682495239653178" />
+          <attvalue for="3" value="0.33175" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+      <edge source="thanks" target="trust" id="108" weight="4">
+        <attvalues>
+          <attvalue for="2" value="1.7646118419743033" />
+          <attvalue for="3" value="0.655575" />
+          <attvalue for="4" value="positivo" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
