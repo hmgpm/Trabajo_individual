@@ -30,14 +30,15 @@ from nltk.tokenize import word_tokenize
 # Análisis de sentimiento
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-# Topic Modelling (opcional - requiere C++ build tools)
+# Topic Modelling - BERT + KMeans (sin dependencias C++)
 try:
-    from bertopic import BERTopic
-    from sklearn.feature_extraction.text import CountVectorizer
-    BERTOPIC_AVAILABLE = True
+    from sentence_transformers import SentenceTransformer
+    from sklearn.cluster import KMeans
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    BERT_AVAILABLE = True
 except ImportError:
-    BERTOPIC_AVAILABLE = False
-    print("[WARNING] BERTopic no disponible. Topic modelling sera omitido.")
+    BERT_AVAILABLE = False
+    print("[WARNING] BERT no disponible. Topic modelling sera omitido.")
 
 # Visualización
 import matplotlib.pyplot as plt
@@ -363,83 +364,81 @@ def detectar_aspectos(df, columna_texto='texto_limpio'):
 
 
 # ============================================================================
-# 5. TOPIC MODELLING CON BERTOPIC
+# 5. TOPIC MODELLING CON BERT + KMEANS
 # ============================================================================
 
 def aplicar_topic_modelling(df, columna_texto='texto_sin_stopwords', n_topics=10):
     """
-    Aplica BERTopic para identificar temas principales.
+    Aplica BERT embeddings + KMeans para identificar temas principales.
     
     Args:
         df: DataFrame
         columna_texto: Columna con texto procesado
-        n_topics: Número aproximado de tópicos a extraer
+        n_topics: Número de tópicos a extraer
         
     Returns:
-        tuple: (df con columnas de tópicos, modelo BERTopic o None)
+        tuple: (df con columnas de tópicos, diccionario con info de tópicos o None)
     """
-    if not BERTOPIC_AVAILABLE:
-        print("\n⚠️  BERTopic no disponible. Omitiendo topic modelling.")
-        df['topic'] = -1  # Asignar tópico por defecto
+    if not BERT_AVAILABLE:
+        print("\nBERT topic modelling omitido (sentence-transformers no disponible)")
+        df['topic'] = -1
         return df, None
     
     print("\n" + "=" * 70)
-    print("📚 PASO 5: TOPIC MODELLING (BERTOPIC)")
+    print("PASO 5: TOPIC MODELLING (BERT + K-MEANS)")
     print("=" * 70)
     
     # Preparar textos
     textos = df[columna_texto].tolist()
     
     print(f"\n   Analizando {len(textos):,} textos...")
-    print("   Esto puede tardar varios minutos...")
-    
-    # Configurar BERTopic
-    vectorizer_model = CountVectorizer(
-        ngram_range=(1, 2),
-        stop_words='english',
-        min_df=5
-    )
-    
-    topic_model = BERTopic(
-        vectorizer_model=vectorizer_model,
-        nr_topics=n_topics,
-        language='english',
-        calculate_probabilities=False,
-        verbose=False
-    )
-    
-    # Entrenar modelo
-    topics, probabilities = topic_model.fit_transform(textos)
-    
-    # Añadir tópicos al DataFrame
-    df['topic'] = topics
-    
-    # Obtener información de tópicos
-    topic_info = topic_model.get_topic_info()
-    
-    print("\n✅ Tópicos identificados:")
-    print(topic_info[['Topic', 'Count', 'Name']].to_string(index=False))
-    
-    # Guardar visualizaciones
-    print("\n   Guardando visualizaciones de tópicos...")
+    print("   Extrayendo embeddings BERT...")
     
     try:
-        # Visualización de tópicos
-        fig = topic_model.visualize_topics()
-        fig.write_html(str(IMAGES_DIR / "topics_visualization.html"))
-        print("   ✓ topics_visualization.html")
+        # Cargar modelo BERT pre-entrenado
+        model = SentenceTransformer('all-MiniLM-L6-v2')
+        
+        # Generar embeddings
+        embeddings = model.encode(textos, show_progress_bar=False, batch_size=32)
+        
+        print(f"   Embeddings generados: {embeddings.shape}")
+        print(f"   Clustering en {n_topics} topicos...")
+        
+        # Clustering con KMeans
+        kmeans = KMeans(n_clusters=n_topics, random_state=42, n_init=10)
+        topics = kmeans.fit_predict(embeddings)
+        
+        # Asignar tópicos al DataFrame
+        df['topic'] = topics
+        
+        # Extraer palabras representativas por tópico
+        print("\n   Topicos identificados:")
+        
+        vectorizer = TfidfVectorizer(max_features=1000, stop_words='english')
+        tfidf_matrix = vectorizer.fit_transform(textos)
+        feature_names = vectorizer.get_feature_names_out()
+        
+        topic_words = {}
+        for topic_id in range(n_topics):
+            topic_mask = topics == topic_id
+            if topic_mask.sum() > 0:
+                # Palabras más frecuentes en este tópico
+                topic_tfidf = tfidf_matrix[topic_mask].mean(axis=0).A1
+                top_idx = topic_tfidf.argsort()[-5:][::-1]
+                top_words = [feature_names[i] for i in top_idx]
+                topic_words[topic_id] = top_words
+                
+                count = topic_mask.sum()
+                print(f"   • Topico {topic_id} ({count} docs): {', '.join(top_words)}")
+        
+        print("\n   Topic modelling completado exitosamente")
+        return df, topic_words
+        
     except Exception as e:
-        print(f"   ⚠ No se pudo generar visualización de tópicos: {e}")
-    
-    try:
-        # Barchart de tópicos
-        fig = topic_model.visualize_barchart(top_n_topics=10)
-        fig.write_html(str(IMAGES_DIR / "topics_barchart.html"))
-        print("   ✓ topics_barchart.html")
-    except Exception as e:
-        print(f"   ⚠ No se pudo generar barchart: {e}")
-    
-    return df, topic_model
+        print(f"\n   Error en BERT topic modelling: {e}")
+        print("   Asignando tópico por defecto...")
+        df['topic'] = -1
+        return df, None
 
 
 # ============================================================================
@@ -747,11 +746,11 @@ def main():
         df_reddit = detectar_aspectos(df_reddit)
         
         # 5. Topic modelling
-        if BERTOPIC_AVAILABLE:
+        if BERT_AVAILABLE:
             df_twitter, twitter_topic_model = aplicar_topic_modelling(df_twitter, n_topics=8)
             df_reddit, reddit_topic_model = aplicar_topic_modelling(df_reddit, n_topics=8)
         else:
-            print("\n⚠️  Topic modelling omitido (BERTopic no disponible)")
+            print("\nBERT topic modelling omitido (sentence-transformers no disponible)")
             df_twitter['topic'] = -1
             df_reddit['topic'] = -1
             twitter_topic_model = None
