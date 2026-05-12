@@ -36,15 +36,16 @@ Este proyecto aplica técnicas avanzadas de **Procesamiento de Lenguaje Natural 
 
 ---
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
+```text
 Trabajo_individual/
 │
 ├── data/
-│   ├── raw/                      # Datos originales (no versionados por tamaño)
-│   ├── clean/                    # Datos procesados (CSV, ignorados por git)
-│   ├── gephi/                    # Archivos de Gephi (versionados)
-│   │   └── Proyecto_IA.gephi     # Proyecto completo de Gephi
+│   ├── raw/                         # Datos originales (no versionados por tamaño)
+│   ├── clean/                       # Datos procesados (CSV, ignorados por git)
+│   ├── gephi/                       # Archivos de Gephi (versionados)
+│   │   └── Proyecto_IA.gephi        # Proyecto completo de Gephi
 │   └── imagenes/
 │       ├── gephi_global.png
 │       ├── gephi_empleo_automatizacion.png
@@ -55,15 +56,15 @@ Trabajo_individual/
 │       └── gephi_oportunidades.png
 │
 ├── src/
-│   └── main.py                   # Pipeline principal (genera datos, gráficos ABSA)
+│   └── main.py                  # Pipeline principal (genera datos y análisis ABSA)
 │
 ├── notebooks/
-│   ├── dashboard.py              # Dashboard interactivo (con ABSA)
-│   └── separacion_gephi.py      # Genera archivos .gexf para Gephi
+│   ├── dashboard.py                 # Dashboard interactivo en Streamlit
+│   └── separacion_gephi.py          # Generación de grafos .gexf para Gephi
 │
 ├── .gitignore
 ├── README.md
-└── requirements.txt              # Dependencias
+└── requirements.txt                 # Dependencias del proyecto
 ---
 
 
@@ -281,6 +282,7 @@ Modelos Predictivos III : Opinión Pública y Sentimiento
 
 ## Referencias
  Dataset Tweets: https://www.kaggle.com/datasets/hossamelshabory97/ai-and-data-jobs-tweets
+
  Dataset Reddit: https://www.kaggle.com/datasets/adrianaajaafar/ai-and-job-security-reddit-discussion 
 
 ---
