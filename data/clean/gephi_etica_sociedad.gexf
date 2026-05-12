@@ -127,13 +127,13 @@
           <attvalue for="1" value="87" />
         </attvalues>
       </node>
-      <node id="trending" label="trending">
+      <node id="granola" label="granola">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="87" />
         </attvalues>
       </node>
-      <node id="granola" label="granola">
+      <node id="trending" label="trending">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="87" />
@@ -249,13 +249,13 @@
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Ética y Sociedad" target="trending" id="18" weight="87">
+      <edge source="Ética y Sociedad" target="granola" id="18" weight="87">
         <attvalues>
           <attvalue for="2" value="0.059535632183908054" />
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Ética y Sociedad" target="granola" id="19" weight="87">
+      <edge source="Ética y Sociedad" target="trending" id="19" weight="87">
         <attvalues>
           <attvalue for="2" value="0.059535632183908054" />
           <attvalue for="3" value="positivo" />

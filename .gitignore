@@ -1,56 +1,113 @@
-# Python
+# ===============================
+#  PYTHON
+# ===============================
 __pycache__/
 *.py[cod]
-*$py.class
 *.so
-.Python
-env/
-venv/
-.venv/
-ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
 *.egg-info/
-.installed.cfg
+dist/
+build/
 *.egg
+*.pyc
+*.pyd
+*.pyo
 
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb_checkpoints/
-
-# Virtual Environment
-.venv/
+# ===============================
+#  VIRTUAL ENVIRONMENTS
+# ===============================
+.env
+.venv
 venv/
 ENV/
+env/
 
-# IDEs
+# ===============================
+#  JUPYTER NOTEBOOK
+# ===============================
+.ipynb_checkpoints/
+*.ipynb
+*/.ipynb_checkpoints/
+
+# ===============================
+#  DATA FILES (generados - ignorar casi todos)
+# ===============================
+*.csv
+*.gexf
+*.gephi
+
+# EXCEPCIÓN: permitir el proyecto manual de Gephi
+!data/gephi/Proyecto_IA.gephi
+
+# Permite incluir los archivos CSV de data/raw
+data/raw/*.csv
+
+# ===============================
+#  IMAGES (ignorar todos los PNG excepto los de Gephi)
+# ===============================
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+
+# EXCEPCIÓN: mantener los grafos semánticos de Gephi
+!data/gephi/gephi_*.png
+
+# ===============================
+#  LOGS AND TEMPORARY FILES
+# ===============================
+*.log
+*.tmp
+*.temp
+*.cache
+*.pkl
+*.pickle
+
+# ===============================
+#  MODEL FILES
+# ===============================
+*.h5
+*.pth
+*.pt
+*.joblib
+*.model
+
+# ===============================
+#  STREAMLIT
+# ===============================
+.streamlit/
+*.streamlit/
+
+# ===============================
+#  IDE / EDITOR
+# ===============================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
 Thumbs.db
+Desktop.ini
 
-# Data (opcional - descomenta si no quieres subir datos)
-# data/raw/*.csv
-# data/clean/*.csv
+# ===============================
+#  GEPHI TEMPORALES
+# ===============================
+*.gephi~
+*.gexf~
 
-# Outputs temporales
-*.log
-*.tmp
+# ===============================
+#  ARCHIVOS COMPRIMIDOS
+# ===============================
+*.zip
+*.tar
+*.gz
+*.rar
 
-# Gephi
-*.gephi
+# ===============================
+#  OTROS
+# ===============================
+*.bak
+*.orig
+*.rej

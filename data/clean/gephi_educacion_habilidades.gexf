@@ -121,7 +121,7 @@
           <attvalue for="1" value="367" />
         </attvalues>
       </node>
-      <node id="granola" label="granola">
+      <node id="machinedriven" label="machinedriven">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="367" />
@@ -133,7 +133,7 @@
           <attvalue for="1" value="367" />
         </attvalues>
       </node>
-      <node id="machinedriven" label="machinedriven">
+      <node id="granola" label="granola">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="367" />
@@ -243,7 +243,7 @@
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Educación y Habilidades" target="granola" id="17" weight="367">
+      <edge source="Educación y Habilidades" target="machinedriven" id="17" weight="367">
         <attvalues>
           <attvalue for="2" value="0.07964931880108993" />
           <attvalue for="3" value="positivo" />
@@ -255,7 +255,7 @@
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Educación y Habilidades" target="machinedriven" id="19" weight="367">
+      <edge source="Educación y Habilidades" target="granola" id="19" weight="367">
         <attvalues>
           <attvalue for="2" value="0.07964931880108993" />
           <attvalue for="3" value="positivo" />

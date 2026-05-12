@@ -637,6 +637,91 @@ def generar_visualizaciones(df):
     print("   Generando sentimiento por aspecto...")
     fig, axes = plt.subplots(2, 5, figsize=(20, 8))
     axes = axes.flatten()
+
+    # 7. GRÁFICO DE BARRAS APILADAS: conteos absolutos por aspecto y sentimiento
+    print("   Generando gráfico de barras apiladas (conteos absolutos) por aspecto...")
+    
+    # Seleccionar columnas de aspectos
+    columnas_aspectos = [col for col in df.columns if col.startswith('aspecto_')]
+    # Crear un DataFrame largo para facilitar el apilado
+    data_aspectos = []
+    for col in columnas_aspectos:
+        aspecto_nombre = col.replace('aspecto_', '').capitalize()
+        # Filtrar filas donde este aspecto es True
+        mask = df[col] == True
+        if mask.sum() > 0:
+            for sent in ['positivo', 'neutro', 'negativo']:
+                count = (df[mask]['sentimiento'] == sent).sum()
+                if count > 0:
+                    data_aspectos.append({
+                        'Aspecto': aspecto_nombre,
+                        'Sentimiento': sent.capitalize(),
+                        'Conteo': count
+                    })
+    
+    df_aspectos_long = pd.DataFrame(data_aspectos)
+    
+    # Mapeo de colores para sentimiento
+    color_map_aspect = {'Positivo': '#27ae60', 'Neutro': '#f39c12', 'Negativo': '#e74c3c'}
+    
+    if not df_aspectos_long.empty:
+        plt.figure(figsize=(14, 8))
+        # Ordenar aspectos por total de menciones (de mayor a menor)
+        orden_aspectos = df_aspectos_long.groupby('Aspecto')['Conteo'].sum().sort_values(ascending=False).index
+        sns.barplot(data=df_aspectos_long, x='Aspecto', y='Conteo', hue='Sentimiento', 
+                    order=orden_aspectos, palette=color_map_aspect)
+        plt.title('Conteo de publicaciones por Aspecto y Sentimiento', fontsize=16, fontweight='bold')
+        plt.xlabel('Aspecto', fontsize=12)
+        plt.ylabel('Número de publicaciones', fontsize=12)
+        plt.xticks(rotation=45, ha='right')
+        plt.legend(title='Sentimiento')
+        plt.tight_layout()
+        plt.savefig(IMAGES_DIR / 'absa_por_aspecto.png', dpi=300, bbox_inches='tight')
+        plt.close()
+        print("   ✓ absa_por_aspecto.png")
+    else:
+        print("   No hay datos suficientes para generar absa_por_aspecto.png")
+    
+    # 8. GRÁFICO DE PORCENTAJES APILADOS (versión mejorada de sentimiento_por_aspecto)
+    print("   Generando gráfico de porcentajes por aspecto...")
+    
+    data_pct = []
+    for col in columnas_aspectos:
+        aspecto_nombre = col.replace('aspecto_', '').capitalize()
+        mask = df[col] == True
+        total = mask.sum()
+        if total > 0:
+            for sent in ['positivo', 'neutro', 'negativo']:
+                count = (df[mask]['sentimiento'] == sent).sum()
+                pct = (count / total) * 100
+                data_pct.append({
+                    'Aspecto': aspecto_nombre,
+                    'Sentimiento': sent.capitalize(),
+                    'Porcentaje': pct
+                })
+    
+    df_pct = pd.DataFrame(data_pct)
+    
+    if not df_pct.empty:
+        plt.figure(figsize=(14, 8))
+        # Usar seaborn para barras apiladas de porcentaje
+        # Primero pivotamos para apilar
+        pivot_pct = df_pct.pivot(index='Aspecto', columns='Sentimiento', values='Porcentaje').fillna(0)
+        # Ordenar por total positivo+negativo? O por frecuencia total; usamos el mismo orden del gráfico anterior
+        orden = df_aspectos_long.groupby('Aspecto')['Conteo'].sum().sort_values(ascending=False).index
+        pivot_pct = pivot_pct.reindex(orden)
+        
+        pivot_pct.plot(kind='barh', stacked=True, color=[color_map_aspect['Positivo'], color_map_aspect['Neutro'], color_map_aspect['Negativo']], figsize=(12, 8))
+        plt.title('Distribución porcentual de sentimiento por aspecto', fontsize=16, fontweight='bold')
+        plt.xlabel('Porcentaje (%)', fontsize=12)
+        plt.ylabel('Aspecto', fontsize=12)
+        plt.legend(title='Sentimiento', bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.tight_layout()
+        plt.savefig(IMAGES_DIR / 'sentimiento_por_aspecto.png', dpi=300, bbox_inches='tight')
+        plt.close()
+        print("   ✓ sentimiento_por_aspecto.png")
+    else:
+        print("   No hay datos para sentimiento_por_aspecto.png")
     
     for idx, col in enumerate(columnas_aspectos):
         aspecto_nombre = col.replace('aspecto_', '').capitalize()
