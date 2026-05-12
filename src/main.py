@@ -52,9 +52,7 @@ except LookupError:
     nltk.download('stopwords', quiet=True)
     nltk.download('punkt', quiet=True)
 
-# ============================================================================
 # CONFIGURACIÓN DE RUTAS
-# ============================================================================
 
 # Obtener ruta base del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,9 +71,8 @@ print(f" Datos raw: {RAW_DATA_DIR}")
 print(f" Datos clean: {CLEAN_DATA_DIR}")
 print(f" Imágenes: {IMAGES_DIR}\n")
 
-# ============================================================================
 # 1. CARGA DE DATOS
-# ============================================================================
+
 
 def cargar_datos():
     """
@@ -105,9 +102,7 @@ def cargar_datos():
     return df_twitter, df_reddit
 
 
-# ============================================================================
 # 2. LIMPIEZA DE TEXTO
-# ============================================================================
 
 def limpiar_texto(texto):
     """
@@ -190,7 +185,7 @@ def preprocesar_datasets(df_twitter, df_reddit):
     print("=" * 70)
     
     # Twitter: identificar columna de texto
-    # Asumiendo que la columna se llama 'content', 'text', 'tweet', etc.
+    # Asumiendo que la columna se llama 'content', 'text', 'tweet'.
     posibles_columnas_twitter = ['content', 'text', 'tweet', 'full_text']
     columna_twitter = None
     for col in posibles_columnas_twitter:
@@ -242,9 +237,7 @@ def preprocesar_datasets(df_twitter, df_reddit):
     return df_twitter, df_reddit
 
 
-# ============================================================================
 # 3. ANÁLISIS DE SENTIMIENTO CON VADER
-# ============================================================================
 
 def analizar_sentimiento_vader(df, columna_texto='texto_limpio'):
     """
@@ -258,7 +251,7 @@ def analizar_sentimiento_vader(df, columna_texto='texto_limpio'):
         DataFrame con columnas de sentimiento añadidas
     """
     print("\n" + "=" * 70)
-    print("😊 PASO 3: ANÁLISIS DE SENTIMIENTO (VADER)")
+    print(" PASO 3: ANÁLISIS DE SENTIMIENTO (VADER)")
     print("=" * 70)
     
     analyzer = SentimentIntensityAnalyzer()
@@ -282,17 +275,15 @@ def analizar_sentimiento_vader(df, columna_texto='texto_limpio'):
     df['sentimiento'] = df['vader_compound'].apply(clasificar_sentimiento)
     
     # Estadísticas
-    print("\n📊 Distribución de sentimiento:")
+    print("\n Distribución de sentimiento:")
     print(df['sentimiento'].value_counts())
-    print(f"\n📈 Polaridad media: {df['vader_compound'].mean():.3f}")
-    print(f"📏 Desviación estándar: {df['vader_compound'].std():.3f}")
+    print(f"\n Polaridad media: {df['vader_compound'].mean():.3f}")
+    print(f" Desviación estándar: {df['vader_compound'].std():.3f}")
     
     return df
 
 
-# ============================================================================
 # 4. ASPECT-BASED SENTIMENT ANALYSIS (ABSA)
-# ============================================================================
 
 def detectar_aspectos(df, columna_texto='texto_limpio'):
     """
@@ -347,7 +338,7 @@ def detectar_aspectos(df, columna_texto='texto_limpio'):
     df['num_aspectos'] = df[columnas_aspectos].sum(axis=1)
     
     # Estadísticas
-    print("\n📊 Frecuencia de aspectos detectados:")
+    print("\n Frecuencia de aspectos detectados:")
     for aspecto in aspectos.keys():
         count = df[f'aspecto_{aspecto}'].sum()
         pct = (count / len(df)) * 100
@@ -358,9 +349,7 @@ def detectar_aspectos(df, columna_texto='texto_limpio'):
     return df
 
 
-# ============================================================================
 # 5. TOPIC MODELLING CON BERT + KMEANS
-# ============================================================================
 
 def aplicar_topic_modelling(df, columna_texto='texto_sin_stopwords', n_topics=10):
     """
@@ -436,9 +425,7 @@ def aplicar_topic_modelling(df, columna_texto='texto_sin_stopwords', n_topics=10
         return df, None
 
 
-# ============================================================================
 # 6. UNIFICACIÓN DE DATASETS
-# ============================================================================
 
 def unificar_datasets(df_twitter, df_reddit):
     """
@@ -452,7 +439,7 @@ def unificar_datasets(df_twitter, df_reddit):
         DataFrame unificado
     """
     print("\n" + "=" * 70)
-    print("🔗 PASO 6: UNIFICACIÓN DE DATASETS")
+    print(" PASO 6: UNIFICACIÓN DE DATASETS")
     print("=" * 70)
     
     # Seleccionar columnas relevantes
@@ -484,9 +471,7 @@ def unificar_datasets(df_twitter, df_reddit):
     return df_unificado
 
 
-# ============================================================================
 # 7. EXPORTACIÓN PARA GEPHI
-# ============================================================================
 
 def exportar_para_gephi(df, columna_texto='texto_sin_stopwords'):
     """
@@ -506,7 +491,7 @@ def exportar_para_gephi(df, columna_texto='texto_sin_stopwords'):
         None (guarda archivo CSV)
     """
     print("\n" + "=" * 70)
-    print("🕸️ PASO 7: PREPARACIÓN PARA GEPHI")
+    print(" PASO 7: PREPARACIÓN PARA GEPHI")
     print("=" * 70)
     
     from collections import Counter
@@ -566,9 +551,7 @@ def exportar_para_gephi(df, columna_texto='texto_sin_stopwords'):
     print(top_conexiones.to_string(index=False))
 
 
-# ============================================================================
 # 8. VISUALIZACIONES PRINCIPALES
-# ============================================================================
 
 def generar_visualizaciones(df):
     """
@@ -678,9 +661,7 @@ def generar_visualizaciones(df):
     print("\n Todas las visualizaciones generadas correctamente")
 
 
-# ============================================================================
 # 9. EXPORTACIÓN DE DATOS FINALES
-# ============================================================================
 
 def exportar_datos(df_unificado, df_twitter, df_reddit):
     """
@@ -713,9 +694,7 @@ def exportar_datos(df_unificado, df_twitter, df_reddit):
     print("\n Exportación completada")
 
 
-# ============================================================================
 # PIPELINE PRINCIPAL
-# ============================================================================
 
 def main():
     """
@@ -766,7 +745,7 @@ def main():
         # ===== PRECÁLCULO DE TÓPICOS PARA DASHBOARD =====
         if BERT_AVAILABLE:
             try:
-                print("\n⏳ Precalculando tópicos (BERT + KMeans) para el dashboard...")
+                print("\n Precalculando tópicos (BERT + KMeans) para el dashboard...")
                 from sklearn.cluster import KMeans
                 from sentence_transformers import SentenceTransformer
                 model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
@@ -781,15 +760,15 @@ def main():
                     df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
                     print("   ✔ Tópicos precalculados guardados en 'datos_unificados.csv'")
                 else:
-                    print("   ⚠️ Pocos textos para topic modelling. Se omitirá.")
+                    print("    Pocos textos para topic modelling. Se omitirá.")
                     df_unificado['topic_precalc'] = -1
                     df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
             except Exception as e:
-                print(f"   ❌ Error precalculando tópicos: {e}")
+                print(f"    Error precalculando tópicos: {e}")
                 df_unificado['topic_precalc'] = -1
                 df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
         else:
-            print("\n⚠️ BERT no disponible, no se precalcularán tópicos. El dashboard usará TF-IDF.")
+            print("\n BERT no disponible, no se precalcularán tópicos. El dashboard usará TF-IDF.")
 
             
             print("\n" + "=" * 70)
@@ -803,7 +782,7 @@ def main():
             print("   2. Ejecutar 'streamlit run notebooks/dashboard.py'")
             
     except Exception as e:
-        print(f"\n❌ ERROR: {e}")
+        print(f"\n ERROR: {e}")
         import traceback
         traceback.print_exc()
 

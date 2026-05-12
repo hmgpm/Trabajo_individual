@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
-  <meta lastmodifieddate="2026-05-11">
+  <meta lastmodifieddate="2026-05-12">
     <creator>NetworkX 3.6.1</creator>
   </meta>
   <graph defaultedgetype="undirected" mode="static" name="">
@@ -115,25 +115,25 @@
           <attvalue for="1" value="368" />
         </attvalues>
       </node>
-      <node id="granola" label="granola">
-        <attvalues>
-          <attvalue for="0" value="palabra" />
-          <attvalue for="1" value="367" />
-        </attvalues>
-      </node>
       <node id="digested" label="digested">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="367" />
         </attvalues>
       </node>
-      <node id="machinedriven" label="machinedriven">
+      <node id="granola" label="granola">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="367" />
         </attvalues>
       </node>
       <node id="rss" label="rss">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="367" />
+        </attvalues>
+      </node>
+      <node id="machinedriven" label="machinedriven">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="367" />
@@ -237,25 +237,25 @@
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Educación y Habilidades" target="granola" id="16" weight="367">
+      <edge source="Educación y Habilidades" target="digested" id="16" weight="367">
         <attvalues>
           <attvalue for="2" value="0.07964931880108993" />
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Educación y Habilidades" target="digested" id="17" weight="367">
+      <edge source="Educación y Habilidades" target="granola" id="17" weight="367">
         <attvalues>
           <attvalue for="2" value="0.07964931880108993" />
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Educación y Habilidades" target="machinedriven" id="18" weight="367">
+      <edge source="Educación y Habilidades" target="rss" id="18" weight="367">
         <attvalues>
           <attvalue for="2" value="0.07964931880108993" />
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Educación y Habilidades" target="rss" id="19" weight="367">
+      <edge source="Educación y Habilidades" target="machinedriven" id="19" weight="367">
         <attvalues>
           <attvalue for="2" value="0.07964931880108993" />
           <attvalue for="3" value="positivo" />

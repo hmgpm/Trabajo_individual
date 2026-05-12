@@ -23,10 +23,7 @@ from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 
-# ============================================================================
 # CONFIGURACIÓN INICIAL
-# ============================================================================
-
 st.set_page_config(
     page_title="Análisis de Sentimiento IA",
     layout="wide",
@@ -53,10 +50,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ============================================================================
 # CSS PERSONALIZADO
-# ============================================================================
-
 st.markdown("""
 <style>
 .stApp {
@@ -105,9 +99,8 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# ============================================================================
-# FUNCIONES
-# ============================================================================
+
+# FUNCIONES PRINCIPALES
 
 def get_project_root():
     current_dir = Path(__file__).resolve().parent
@@ -155,17 +148,12 @@ def mostrar_topicos_con_palabras(df_topicos, titulo):
                 top_words = [words[i] for i in top_idx]
                 st.write(f"**Topic {topic_id}** (n={mask.sum()}): {', '.join(top_words)}")
 
-# ============================================================================
 # CARGA DE DATOS
-# ============================================================================
 
 df = cargar_datos()
 img_dir = obtener_ruta_imagenes()
 
-# ============================================================================
 # HEADER
-# ============================================================================
-
 st.markdown(
     '<h1 class="main-title">Análisis de Sentimiento y Opinión Pública sobre Inteligencia Artificial</h1>',
     unsafe_allow_html=True
@@ -176,9 +164,8 @@ st.markdown(
 )
 st.markdown("---")
 
-# ============================================================================
 # INTRODUCCIÓN METODOLÓGICA
-# ============================================================================
+
 
 st.header("1. Contexto y Metodología")
 st.markdown("""
@@ -191,9 +178,7 @@ Las redes semánticas fueron generadas mediante **NetworkX** y visualizadas en *
 """)
 st.markdown("---")
 
-# ============================================================================
 # SIDEBAR
-# ============================================================================
 
 st.sidebar.header("Filtros")
 st.sidebar.markdown(
@@ -216,9 +201,7 @@ if fuente_seleccionada != 'Todos':
 if sentimiento_seleccionado != 'Todos':
     df_filtrado = df_filtrado[df_filtrado['sentimiento'] == sentimiento_seleccionado]
 
-# ============================================================================
 # KPIS
-# ============================================================================
 
 st.header("2. Métricas Clave")
 
@@ -239,9 +222,7 @@ with col4:
 
 st.markdown("---")
 
-# ============================================================================
 # SENTIMIENTO
-# ============================================================================
 
 st.header("3. Distribución de Sentimiento")
 
@@ -257,7 +238,7 @@ with col1:
     )
     fig_sent.update_layout(title="Distribución Relativa de Sentimientos", yaxis_title="% publicaciones", xaxis_title="")
     st.plotly_chart(fig_sent, use_container_width=True)
-    st.info("La comparación entre Twitter y Reddit debe interpretarse considerando el desequilibrio muestral entre plataformas. Twitter presenta un volumen mucho mayor de publicaciones, mientras que Reddit contiene menos publicaciones pero generalmente son más extensas y argumentativas.")
+    st.info("La comparación entre Twitter y Reddit debe interpretarse considerando el desequilibrio muestral entre plataformas. Twitter presenta un volumen mucho mayor de publicaciones, ya que la mustra seleccionada es mayor. Por otro lado, Reddit tiene una menor muestra, pero generalmente las conversaciones son más extensas y argumentativas.")
 
 with col2:
     fig_polar = px.histogram(df_filtrado, x='vader_compound', nbins=50, title="Distribución del Score VADER Compound")
@@ -269,9 +250,7 @@ with col2:
 
 st.markdown("---")
 
-# ============================================================================
 # COMPARATIVA FUENTES
-# ============================================================================
 
 st.header("4. Comparativa Twitter vs Reddit")
 
@@ -285,78 +264,82 @@ with col2:
     fig_box.add_hline(y=0, line_dash="dash", line_color="red")
     st.plotly_chart(fig_box, use_container_width=True)
     st.markdown("""
-    **Interpretación:** Reddit presenta mayor dispersión emocional, indicando debates más argumentativos. Twitter concentra contenido neutral e informativo, operando como canal de difusión rápida.
+    **Conclusiones:** Reddit presenta mayor dispersión emocional, indicando debates más argumentativos. Twitter concentra contenido neutral e informativo, operando como canal de difusión.
     """)
 
 st.markdown("---")
 
-# ============================================================================
 # GRAFOS Y PILARES DINÁMICOS
-# ============================================================================
 
 st.header("5. Análisis por Pilares Temáticos (Redes Semánticas)")
 
 st.markdown("""
-Las redes semánticas evidencian que los aspectos detectados no operan de forma aislada. Se han agrupado por proximidad conversacional (ej. Empleo + Automatización) para obtener comunidades interpretables.
-""")
+No todos los aspectos detectados fueron representados mediante grafos independientes.
 
-# Diccionario centralizado de pilares y sus insights basados en la metadata de Gephi
+Aspectos como **salarios**, **educación** o **creatividad** presentaban una densidad conversacional insuficiente para generar redes interpretables sin introducir ruido visual.
+
+Otros temas fueron agrupados debido a su fuerte solapamiento semántico:
+
+- Empleo + Automatización
+- Ética + Sociedad
+- Machine Learning + Tecnología
+
+Esto permite obtener comunidades conversacionales más coherentes e interpretables.""")
+
+# Diccionario centralizado de pilares y sus insights basados en Gephi
 pilares = {
     "Visión Global": {
         "img": "gephi_global.png",
         "insight": """
-        **Conclusión Estratégica:** El grafo muestra una fuerte conexión entre términos como `bot`, `trending` y `article, indicando que gran parte del volumen global proviene de cuentas automatizadas de difusión de noticias y tendencias tecnológicas. 
-        
-        Además, el nodo `python` destaca por su alta conectividad e intermediación (betweenness), sirviendo de puente principal entre el desarrollo algorítmico y otras áreas de discusión técnica. El sentimiento general es mayormente positivo pero fuertemente impulsado por contenido automatizado y educativo.
-        """
+        **Insights:** El grafo global muestra que la conversación sobre inteligencia artificial está dominada por términos técnicos y profesionales, donde los nodos más grandes y conectados son “python”, “free” y “engineering”. Esto indica que gran parte del debate se centra en programación, acceso abierto a herramientas y desarrollo tecnológico.
+También aparecen nodos como “bot”, “trending” y “amp”, que probablemente estén asociados a cuentas automatizadas o sistemas de difusión masiva de contenido. Esto sugiere que parte de la conversación puede estar influenciada por bots que amplifican determinados temas o noticias relacionadas con IA.
+Aun así, el análisis de sentimiento de la red es mayoritariamente positivo, lo que refleja una percepción optimista hacia el avance tecnológico y las oportunidades asociadas a la inteligencia artificial.
+"""
     },
     "Empleo y Automatización": {
         "img": "gephi_empleo_automatizacion.png",
         "insight": """
-        **Conclusión Estratégica:** A diferencia del pánico al reemplazo laboral, la red revela que la conversación está orientada hacia la transición profesional. Destaca una fuerte interrelación entre `hiring`, `engineer` y referencias de hubs geográficos como `united` (probablemente referenciando United States).
-        
-        Las conexiones más sólidas vinculan la automatización no con la destrucción, sino con la necesidad de aprendizaje constante (`learning`, `aiml`). La conversación percibe la IA como un reestructurador del mercado, más que como su ejecutor.
-        """
+        **Insights:** En este pilar destacan nodos como “hiring”, “machine”, “learning” y “machinedriven”, que representan el núcleo real de la conversación sobre empleo y automatización. La red muestra que la IA está muy relacionada con nuevas oportunidades laborales, perfiles técnicos y procesos automatizados de trabajo.
+También aparecen términos como “elbasheer”, “granola” y “ramsey”, que probablemente provienen de bots o cuentas automatizadas que generan contenido repetitivo dentro del dataset. Aunque tienen conexiones fuertes, no representan conceptos relevantes del debate sobre IA.
+El sentimiento global del grafo es positivo, indicando que la automatización y el desarrollo de sistemas inteligentes se perciben más como una oportunidad de crecimiento y evolución profesional que como una amenaza directa para el empleo.
+"""
     },
     "Ética y Sociedad": {
         "img": "gephi_etica_sociedad.png",
         "insight": """
-        **Conclusión Estratégica:** Este pilar presenta la estructura más crítica y polarizada. Es el único grafo donde nodos clave como `risk` muestran una puntuación de sentimiento marcadamente negativa (-0.05), y términos como `bias` aparecen con un sentimiento neutral pero de alta fricción conversacional.
-        
-        Se evidencia una preocupación tangible por la intersección entre la seguridad técnica (`security`) y la dimensión humana (`human`). La conversación aquí no asume un consenso optimista, reflejando cautela regulatoria y social.
-        """
+        **Insights:** El grafo de ética y sociedad presenta una conversación principalmente positiva, especialmente alrededor de nodos como “chatgpt”, “data”, “human” y “security”, que concentran gran parte de las conexiones relevantes. Esto refleja que la discusión ética sobre IA está muy vinculada a la seguridad, el uso de datos y la interacción entre humanos y sistemas inteligentes.
+Sin embargo, existen ramas con un sentimiento más crítico. El nodo “risk” presenta un sentimiento claramente negativo, asociado a preocupaciones sobre riesgos tecnológicos y posibles impactos sociales. Por otro lado, “bias” mantiene un sentimiento más neutro, lo que indica que el sesgo algorítmico se debate desde una perspectiva más analítica y menos emocional.
+En conjunto, la red refleja que la percepción ética de la IA es relativamente optimista, aunque persisten preocupaciones concretas relacionadas con riesgos y responsabilidad tecnológica.
+"""
     },
     "Educación y Habilidades": {
         "img": "gephi_educacion_habilidades.png",
         "insight": """
-        **Conclusión Estratégica:** Refleja la altísima movilización del ecosistema formativo alrededor de la inteligencia artificial. Nodos como `free` presentan sentimientos fuertemente positivos (0.63), demostrando la enorme valoración de los recursos educativos abiertos y democratizados.
-        
-        La tríada conformada por `python`, `data` y `machine`  conforma el núcleo inamovible de las competencias técnicas demandadas. El aprendizaje de la IA se percibe de forma casi unánime como una oportunidad inminente de empoderamiento personal.
-        """
+        **Insights:** Este grafo muestra una percepción claramente positiva de la IA en el ámbito educativo y del desarrollo de habilidades. Las conexiones más fuertes aparecen entre los nodos “learning”, “data”, “machine” y “learn”, lo que indica que el aprendizaje técnico y la formación en ciencia de datos son temas centrales dentro de la conversación.
+La red refleja cómo muchos usuarios asocian la inteligencia artificial con oportunidades de aprendizaje, adquisición de nuevas competencias y mejora profesional. Además, la fuerte conexión entre términos educativos y tecnológicos demuestra que el interés por la IA está muy ligado al crecimiento académico y laboral.
+"""
     },
     "Machine Learning & Data Science": {
         "img": "gephi_machine_learning_datascience.png",
         "insight": """
-        **Conclusión Estratégica:** Ecosistema altamente técnico centrado en la implementación práctica. Los nodos dominantes giran alrededor del ecosistema de OpenAI (`chatgpt`, `gpt`, `openai`), consolidándolo como el estándar de facto en las discusiones de vanguardia de ciencia de datos.
-        
-        Se trata de una red que mantiene un tono informativo y altamente optimista, evidenciando cómo los modelos de lenguaje están redefiniendo el análisis clásico (`data`, `python`).
-        """
+        **Insights:** El pilar de Machine Learning y Data Science presenta un sentimiento global positivo y está centrado principalmente en nodos como “chatgpt”, “data” y “gpt”, que son los conceptos más conectados y relevantes de la red. Esto confirma que los modelos generativos y el análisis de datos dominan gran parte de la conversación técnica sobre inteligencia artificial.
+Al igual que en otros grafos, vuelven a aparecer términos como “digested” y “elbasheer”, lo que sugiere la presencia de bots o sistemas automáticos de difusión de contenido dentro del dataset. Aunque generan conexiones importantes por frecuencia, no representan conceptos técnicos clave del análisis.
+En general, la red muestra una comunidad muy enfocada en innovación tecnológica, herramientas de IA generativa y aplicaciones prácticas relacionadas con Data Science y Machine Learning.
+"""
     },
     "Negocio & Productividad": {
         "img": "gephi_negocio_productividad.png",
         "insight": """
-        **Conclusión Estratégica:** Enfoque orientado a la rentabilidad y eficiencia. La inteligencia artificial se ha desmarcado de la ciencia ficción para volverse una herramienta corporativa estándar. Nodos relacionales como `help` alcanzan una positividad muy alta (0.61).
-        
-        Toda la estructura orbita en torno a la eficiencia operacional (`business`, `team`, `analytics`). La conversación demuestra que los usuarios perciben la IA como el habilitador principal para potenciar las estrategias de marketing y análisis corporativo.
-        """
+        **Insights:** El grafo de negocio y productividad presenta un sentimiento claramente positivo, lo que indica que la inteligencia artificial se percibe principalmente como una herramienta para mejorar procesos y generar valor dentro de las organizaciones. Los nodos más conectados son “business”, “data” y “team”, reflejando que la conversación gira alrededor del uso estratégico de los datos y del trabajo colaborativo apoyado por IA.
+La red muestra que muchas publicaciones relacionan la inteligencia artificial con eficiencia empresarial, toma de decisiones y optimización de equipos de trabajo. En general, la percepción dominante es que la IA puede actuar como un apoyo para aumentar la productividad y facilitar la innovación dentro del entorno corporativo.
+"""
     },
     "Oportunidades": {
         "img": "gephi_oportunidades.png",
         "insight": """
-        **Conclusión Estratégica:** El discurso está gobernado por el entusiasmo tecnológico y el progreso continuo. La red se organiza a través de verbos de acción positiva y adjetivos prospectivos: palabras como `improve` (0.62) o `better` (0.53) registran las intensidades emocionales más positivas del estudio.
-        
-        Las discusiones convergen en torno a la exploración de capacidades futuras (`future`, `potential`), proyectando a la IA como la palanca definitiva para optimizar el trabajo intelectual y creativo.
-        """
+        **Insights:** El pilar de oportunidades también presenta un sentimiento mayoritariamente positivo. Las palabras con más conexiones dentro de la red son “new”, “data”, “future” y “chatgpt”, lo que refleja una conversación muy orientada hacia innovación, crecimiento tecnológico y posibilidades futuras de la inteligencia artificial.
+La presencia de términos relacionados con futuro y nuevas tecnologías muestra que muchos usuarios ven la IA como una oportunidad de transformación tanto profesional como empresarial. Además, la importancia de “chatgpt” dentro de la red confirma el fuerte impacto que los modelos generativos están teniendo en la percepción pública de la inteligencia artificial y sus aplicaciones futuras.
+"""
     }
 }
 
@@ -382,16 +365,113 @@ with col_text:
 
 st.markdown("---")
 
-# ============================================================================
-# 6. TOPIC MODELLING (BERT + KMeans)
-# ============================================================================
 
+# 6. TOPIC MODELLING (BERT + KMeans)
+
+def generar_insight_topic(topic_id, palabras, n_docs):
+    """
+    Genera insights dinámicos según las palabras principales del tópico.
+    """
+
+    palabras_texto = " ".join(palabras).lower()
+
+    # Detectar temática automáticamente
+    if any(p in palabras_texto for p in ['chatgpt', 'gpt', 'llm', 'openai']):
+        tema = "IA generativa y modelos de lenguaje"
+        insight = (
+            "Este tópico está relacionado con herramientas de IA generativa y modelos "
+            "de lenguaje. La presencia de términos como ChatGPT y GPT refleja el fuerte "
+            "impacto de los modelos generativos dentro de la conversación online."
+        )
+
+    elif any(p in palabras_texto for p in ['hiring', 'job', 'career', 'scientist']):
+        tema = "Empleo y mercado laboral"
+        insight = (
+            "El tópico refleja conversaciones relacionadas con empleo, contratación y "
+            "perfiles profesionales vinculados a Data Science e inteligencia artificial."
+        )
+
+    elif any(p in palabras_texto for p in ['learning', 'machine', 'python', 'model']):
+        tema = "Machine Learning y aprendizaje técnico"
+        insight = (
+            "Las palabras principales muestran un enfoque técnico orientado a Machine Learning, "
+            "programación y desarrollo de modelos de inteligencia artificial."
+        )
+
+    elif any(p in palabras_texto for p in ['ethics', 'bias', 'risk', 'privacy', 'security']):
+        tema = "Ética y riesgos de la IA"
+        insight = (
+            "El tópico agrupa preocupaciones relacionadas con ética, privacidad, sesgos "
+            "algorítmicos y riesgos asociados al uso de inteligencia artificial."
+        )
+
+    elif any(p in palabras_texto for p in ['business', 'team', 'productivity', 'strategy']):
+        tema = "Negocio y productividad"
+        insight = (
+            "La conversación se centra en aplicaciones empresariales de la IA, especialmente "
+            "en productividad, estrategia y optimización de procesos."
+        )
+
+    elif any(p in palabras_texto for p in ['bot', 'rss', 'amp', 'trending']):
+        tema = "Automatización y difusión de contenido"
+        insight = (
+            "La presencia de términos relacionados con bots y difusión automática sugiere "
+            "que parte del contenido puede provenir de cuentas automatizadas o agregadores."
+        )
+
+    else:
+        tema = "Conversación general sobre IA"
+        insight = (
+            "El tópico representa una conversación general sobre inteligencia artificial "
+            "sin una temática claramente especializada."
+        )
+
+    return {
+        "tema": tema,
+        "insight": insight,
+        "n_docs": n_docs
+    }
 st.header("6. Topic Modelling")
 
 if 'topic_precalc' in df_filtrado.columns and df_filtrado['topic_precalc'].notna().all() and (df_filtrado['topic_precalc'] != -1).any():
     df_temp = df_filtrado.copy()
     df_temp['topic'] = df_temp['topic_precalc']
     mostrar_topicos_con_palabras(df_temp, "Distribución de Documentos por Tópico (Precalculado con BERT)")
+    
+    # INSIGHTS DINÁMICOS
+
+    st.subheader("Insights de los Tópicos")
+
+    for topic_id in sorted(df_temp['topic'].unique()):
+
+        docs_topic = df_temp[df_temp['topic'] == topic_id]
+
+        # Obtener palabras frecuentes
+        texto_topic = " ".join(docs_topic['texto_limpio'].astype(str))
+
+        palabras = (
+            pd.Series(texto_topic.split())
+            .value_counts()
+            .head(5)
+            .index
+            .tolist()
+        )
+
+        resultado = generar_insight_topic(
+            topic_id,
+            palabras,
+            len(docs_topic)
+        )
+
+        st.markdown(f"""
+    ### Topic {topic_id} — {resultado['tema']}
+
+    **Palabras clave:** {", ".join(palabras)}
+
+    {resultado['insight']}
+
+    - Número de documentos: **{resultado['n_docs']:,}**
+    """)
 else:
     st.warning("No se encontraron tópicos precalculados. Calculando con TF-IDF + KMeans (rápido)...")
     textos = df_filtrado['texto_limpio'].fillna("").tolist()
@@ -405,6 +485,41 @@ else:
             df_temp = df_filtrado.copy()
             df_temp['topic'] = clusters
             mostrar_topicos_con_palabras(df_temp, "Distribución de Documentos por Tópico (TF-IDF + KMeans)")
+            
+            # INSIGHTS DINÁMICOS
+
+            st.subheader("Insights de los Tópicos")
+
+            for topic_id in sorted(df_temp['topic'].unique()):
+
+                docs_topic = df_temp[df_temp['topic'] == topic_id]
+
+                # Obtener palabras frecuentes
+                texto_topic = " ".join(docs_topic['texto_limpio'].astype(str))
+
+                palabras = (
+                    pd.Series(texto_topic.split())
+                    .value_counts()
+                    .head(5)
+                    .index
+                    .tolist()
+                )
+
+                resultado = generar_insight_topic(
+                    topic_id,
+                    palabras,
+                    len(docs_topic)
+                )
+
+                st.markdown(f"""
+            ### Topic {topic_id} — {resultado['tema']}
+
+            **Palabras clave:** {", ".join(palabras)}
+
+            {resultado['insight']}
+
+            - Número de documentos: **{resultado['n_docs']:,}**
+            """)
         else:
             st.info("No hay suficiente variedad de textos para generar tópicos significativos.")
     else:
@@ -412,9 +527,7 @@ else:
 
 st.markdown("---")
 
-# ============================================================================
 # CONCLUSIÓN GLOBAL
-# ============================================================================
 
 st.header("7. Conclusiones Globales")
 
@@ -423,14 +536,12 @@ El análisis evidencia que la conversación pública sobre Inteligencia Artifici
 
 A diferencia de la especulación recurrente sobre el reemplazo masivo, los datos semánticos demuestran que los usuarios perciben la IA como una transición técnica obligatoria: la adopción de herramientas (especialmente del ecosistema de lenguajes como Python y modelos generativos como GPT) es vista como una ventaja competitiva clave.
 
-Sin embargo, persisten focos críticos consolidados —concentrados en mayor medida en plataformas como Reddit— que exigen resolver los debates sobre **privacidad, sesgos (`bias`) algorítmicos y riesgos (`risk`) éticos** antes de alcanzar una asimilación corporativa y social madura.
+Sin embargo, persisten focos críticos consolidados que exigen resolver los debates sobre **sesgos (`bias`) algorítmicos y riesgos (`risk`) éticos** antes de alcanzar una asimilación corporativa y social avanzada.
 """)
 
 st.markdown("---")
 
-# ============================================================================
 # FOOTER
-# ============================================================================
 
 st.markdown(
     """

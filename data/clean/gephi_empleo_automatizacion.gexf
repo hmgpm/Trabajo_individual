@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
-  <meta lastmodifieddate="2026-05-11">
+  <meta lastmodifieddate="2026-05-12">
     <creator>NetworkX 3.6.1</creator>
   </meta>
   <graph defaultedgetype="undirected" mode="static" name="">
@@ -55,7 +55,7 @@
           <attvalue for="1" value="2196" />
         </attvalues>
       </node>
-      <node id="identified" label="identified">
+      <node id="digested" label="digested">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="2189" />
@@ -67,7 +67,7 @@
           <attvalue for="1" value="2189" />
         </attvalues>
       </node>
-      <node id="digested" label="digested">
+      <node id="identified" label="identified">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="2189" />
@@ -79,13 +79,13 @@
           <attvalue for="1" value="2186" />
         </attvalues>
       </node>
-      <node id="machinedriven" label="machinedriven">
+      <node id="rss" label="rss">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="2184" />
         </attvalues>
       </node>
-      <node id="rss" label="rss">
+      <node id="machinedriven" label="machinedriven">
         <attvalues>
           <attvalue for="0" value="palabra" />
           <attvalue for="1" value="2184" />
@@ -177,7 +177,7 @@
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Empleo y Automatización" target="identified" id="6" weight="2189">
+      <edge source="Empleo y Automatización" target="digested" id="6" weight="2189">
         <attvalues>
           <attvalue for="2" value="0.08547848332571951" />
           <attvalue for="3" value="positivo" />
@@ -189,7 +189,7 @@
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Empleo y Automatización" target="digested" id="8" weight="2189">
+      <edge source="Empleo y Automatización" target="identified" id="8" weight="2189">
         <attvalues>
           <attvalue for="2" value="0.08547848332571951" />
           <attvalue for="3" value="positivo" />
@@ -201,13 +201,13 @@
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Empleo y Automatización" target="machinedriven" id="10" weight="2184">
+      <edge source="Empleo y Automatización" target="rss" id="10" weight="2184">
         <attvalues>
           <attvalue for="2" value="0.08514844322344323" />
           <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="Empleo y Automatización" target="rss" id="11" weight="2184">
+      <edge source="Empleo y Automatización" target="machinedriven" id="11" weight="2184">
         <attvalues>
           <attvalue for="2" value="0.08514844322344323" />
           <attvalue for="3" value="positivo" />

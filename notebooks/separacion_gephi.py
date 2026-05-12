@@ -1,7 +1,7 @@
 """
 separacion_gephi.py - Construcción de redes radiales por pilar conversacional
 ======================================================================
-Genera un grafo radial por cada pilar temático (empleo, automatización, ética, etc.)
+Genera un grafo radial por cada pilar temático 
 donde el nodo central es el pilar y los nodos satélite son palabras clave
 con aristas coloreadas por sentimiento promedio.
 """
@@ -19,9 +19,8 @@ OUTPUT_DIR = DATA_DIR
 IMAGES_DIR = BASE_DIR / "data" / "imagenes"
 IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
-# ============================================================================
-# DEFINICIÓN DE PILARES CON PALABRAS CLAVE (como en el EDA de Ryanair)
-# ============================================================================
+# 
+# DEFINICIÓN DE PILARES CON PALABRAS CLAVE
 SEMILLAS = {
     'empleo_automatizacion': {
         'keywords': ['job', 'employment', 'career', 'hiring', 'worker', 'automation',
@@ -149,7 +148,7 @@ def construir_red_radial(df, pilar_id, config, top_n_palabras=200, min_frecuenci
     # 8. Eliminar nodos aislados (por si acaso)
     G.remove_nodes_from(list(nx.isolates(G)))
     
-    # 9. Calcular grado ponderado para los nodos (útil para tamaño en Gephi)
+    # 9. Calcular grado ponderado para los nodos 
     if G.number_of_nodes() > 0:
         weighted_deg = dict(G.degree(weight='weight'))
         nx.set_node_attributes(G, weighted_deg, 'weighted_degree')
@@ -157,19 +156,19 @@ def construir_red_radial(df, pilar_id, config, top_n_palabras=200, min_frecuenci
     return G
 
 def main():
-    print("🚀 Construyendo redes radiales por pilar conversacional...")
+    print(" Construyendo redes radiales por pilar conversacional...")
     
     # Cargar datos unificados
     input_file = DATA_DIR / "datos_unificados.csv"
     if not input_file.exists():
-        print(f"❌ Error: {input_file} no encontrado. Ejecuta main.py primero.")
+        print(f" Error: {input_file} no encontrado. Ejecuta main.py primero.")
         return
     
     df = pd.read_csv(input_file)
     
     # Verificar columnas necesarias
     if 'texto_sin_stopwords' not in df.columns:
-        print("❌ Columna 'texto_sin_stopwords' no encontrada. Asegúrate de ejecutar main.py con lematización.")
+        print(" Columna 'texto_sin_stopwords' no encontrada. Asegúrate de ejecutar main.py con lematización.")
         return
     
     # Construir un grafo por cada pilar
@@ -185,8 +184,7 @@ def main():
         else:
             print(f"  ⚠️ Grafo vacío para '{pilar_id}'")
     
-    # También generar un grafo global con todos los pilares como centros? Opcional.
-    # Por ahora solo generamos los pilares individuales.
+    
     print("\n✨ Proceso completado. Archivos .gexf listos para importar en Gephi.")
 
 if __name__ == "__main__":
