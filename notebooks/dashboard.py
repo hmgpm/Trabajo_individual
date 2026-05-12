@@ -269,9 +269,111 @@ with col2:
 
 st.markdown("---")
 
+# 
+# SECCIÓN 5: ANÁLISIS POR ASPECTOS (ABSA)
+
+st.header("5. Análisis por Aspectos (ABSA)")
+
+st.markdown("""
+A continuación se muestra la relación entre los **aspectos temáticos** detectados en las conversaciones y el **sentimiento** asociado a cada uno.  
+Estos aspectos han sido definidos mediante listas de palabras clave (empleo, automatización, ética, productividad, etc.).
+""")
+
+# Obtener columnas de aspectos (todas las que empiezan por 'aspecto_')
+aspect_cols = [col for col in df_filtrado.columns if col.startswith('aspecto_')]
+
+if len(aspect_cols) == 0:
+    st.warning("No se encontraron columnas de aspectos en los datos. Ejecuta primero 'main.py' con la detección de aspectos.")
+else:
+    # Preparamos los datos para los gráficos
+    data_counts = []   # para barras apiladas (conteos)
+    data_pct = []      # para porcentajes
+    
+    for col in aspect_cols:
+        aspecto = col.replace('aspecto_', '').capitalize()
+        mask = df_filtrado[col] == True
+        total = mask.sum()
+        if total > 0:
+            for sent in ['positivo', 'neutro', 'negativo']:
+                count = (df_filtrado[mask]['sentimiento'] == sent).sum()
+                if count > 0:
+                    data_counts.append({
+                        'Aspecto': aspecto,
+                        'Sentimiento': sent.capitalize(),
+                        'Conteo': count,
+                        'Porcentaje': (count / total) * 100
+                    })
+    
+    df_absa = pd.DataFrame(data_counts)
+    
+    if df_absa.empty:
+        st.info("No hay suficientes menciones de aspectos para mostrar gráficos.")
+    else:
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.subheader(" Conteo de publicaciones por aspecto")
+            # Gráfico de barras apiladas (Plotly)
+            pivot_counts = df_absa.pivot(index='Aspecto', columns='Sentimiento', values='Conteo').fillna(0)
+            # Ordenar por total descendente
+            pivot_counts['Total'] = pivot_counts.sum(axis=1)
+            pivot_counts = pivot_counts.sort_values('Total', ascending=False).drop('Total', axis=1)
+            
+            fig_counts = go.Figure()
+            for sent in ['Positivo', 'Neutro', 'Negativo']:
+                if sent in pivot_counts.columns:
+                    fig_counts.add_trace(go.Bar(
+                        name=sent,
+                        x=pivot_counts.index,
+                        y=pivot_counts[sent],
+                        marker_color={'Positivo': '#27ae60', 'Neutro': '#f39c12', 'Negativo': '#e74c3c'}[sent]
+                    ))
+            fig_counts.update_layout(
+                barmode='stack',
+                title="Número de publicaciones por aspecto y sentimiento",
+                xaxis_title="Aspecto",
+                yaxis_title="Conteo",
+                legend_title="Sentimiento",
+                height=500
+            )
+            st.plotly_chart(fig_counts, use_container_width=True)
+        
+        with col2:
+            st.subheader(" Distribución porcentual por aspecto")
+            # Gráfico de barras horizontales apiladas (porcentajes)
+            pivot_pct = df_absa.pivot(index='Aspecto', columns='Sentimiento', values='Porcentaje').fillna(0)
+            # Reordenar según el mismo orden que el gráfico de conteos
+            pivot_pct = pivot_pct.reindex(pivot_counts.index)
+            
+            fig_pct = go.Figure()
+            for sent in ['Positivo', 'Neutro', 'Negativo']:
+                if sent in pivot_pct.columns:
+                    fig_pct.add_trace(go.Bar(
+                        name=sent,
+                        y=pivot_pct.index,
+                        x=pivot_pct[sent],
+                        orientation='h',
+                        marker_color={'Positivo': '#27ae60', 'Neutro': '#f39c12', 'Negativo': '#e74c3c'}[sent]
+                    ))
+            fig_pct.update_layout(
+                barmode='stack',
+                title="Porcentaje de sentimiento por aspecto",
+                xaxis_title="Porcentaje (%)",
+                yaxis_title="Aspecto",
+                legend_title="Sentimiento",
+                height=500
+            )
+            st.plotly_chart(fig_pct, use_container_width=True)
+        
+        # Tabla resumen (opcional)
+        with st.expander(" Ver tabla resumen de conteos y porcentajes"):
+            st.dataframe(df_absa.pivot(index='Aspecto', columns='Sentimiento', values=['Conteo', 'Porcentaje']).round(1))
+
+st.markdown("---")
+
 # GRAFOS Y PILARES DINÁMICOS
 
-st.header("5. Análisis por Pilares Temáticos (Redes Semánticas)")
+st.header("6. Análisis por Pilares Temáticos (Redes Semánticas)")
 
 st.markdown("""
 No todos los aspectos detectados fueron representados mediante grafos independientes.
@@ -366,7 +468,7 @@ with col_text:
 st.markdown("---")
 
 
-# 6. TOPIC MODELLING (BERT + KMeans)
+# 7. TOPIC MODELLING (BERT + KMeans)
 
 def generar_insight_topic(topic_id, palabras, n_docs):
     """
@@ -431,7 +533,7 @@ def generar_insight_topic(topic_id, palabras, n_docs):
         "insight": insight,
         "n_docs": n_docs
     }
-st.header("6. Topic Modelling")
+st.header("7. Topic Modelling")
 
 if 'topic_precalc' in df_filtrado.columns and df_filtrado['topic_precalc'].notna().all() and (df_filtrado['topic_precalc'] != -1).any():
     df_temp = df_filtrado.copy()
@@ -529,7 +631,7 @@ st.markdown("---")
 
 # CONCLUSIÓN GLOBAL
 
-st.header("7. Conclusiones Globales")
+st.header("8. Conclusiones Globales")
 
 st.markdown("""
 El análisis evidencia que la conversación pública sobre Inteligencia Artificial se encuentra dominada por una retórica de **productividad, adaptación profesional y expansión de capacidades**. 
