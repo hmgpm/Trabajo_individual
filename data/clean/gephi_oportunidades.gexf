@@ -1,807 +1,264 @@
 <?xml version='1.0' encoding='utf-8'?>
 <gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
-  <meta lastmodifieddate="2026-05-11">
+  <meta lastmodifieddate="2026-05-12">
     <creator>NetworkX 3.6.1</creator>
   </meta>
   <graph defaultedgetype="undirected" mode="static" name="">
     <attributes mode="static" class="edge">
-      <attribute id="2" title="pmi" type="double" />
+      <attribute id="2" title="sentiment_score" type="double" />
+      <attribute id="3" title="sentiment_label" type="string" />
     </attributes>
     <attributes mode="static" class="node">
-      <attribute id="0" title="weighted_degree" type="long" />
-      <attribute id="1" title="betweenness" type="double" />
+      <attribute id="0" title="tipo" type="string" />
+      <attribute id="1" title="weighted_degree" type="long" />
     </attributes>
     <nodes>
-      <node id="advantage" label="advantage">
+      <node id="Oportunidades" label="Oportunidades">
         <attvalues>
-          <attvalue for="0" value="42" />
-          <attvalue for="1" value="0.016768416768416766" />
-        </attvalues>
-      </node>
-      <node id="learn" label="learn">
-        <attvalues>
-          <attvalue for="0" value="48" />
-          <attvalue for="1" value="0.044548774811932715" />
-        </attvalues>
-      </node>
-      <node id="amp" label="amp">
-        <attvalues>
-          <attvalue for="0" value="297" />
-          <attvalue for="1" value="0.0" />
-        </attvalues>
-      </node>
-      <node id="rss" label="rss">
-        <attvalues>
-          <attvalue for="0" value="370" />
-          <attvalue for="1" value="0.006163951287790297" />
-        </attvalues>
-      </node>
-      <node id="article" label="article">
-        <attvalues>
-          <attvalue for="0" value="345" />
-          <attvalue for="1" value="0.15399035948571552" />
-        </attvalues>
-      </node>
-      <node id="trending" label="trending">
-        <attvalues>
-          <attvalue for="0" value="423" />
-          <attvalue for="1" value="0.007401018314331004" />
-        </attvalues>
-      </node>
-      <node id="analytics" label="analytics">
-        <attvalues>
-          <attvalue for="0" value="15" />
-          <attvalue for="1" value="0.007599661547029966" />
-        </attvalues>
-      </node>
-      <node id="today" label="today">
-        <attvalues>
-          <attvalue for="0" value="57" />
-          <attvalue for="1" value="0.22189622955876825" />
-        </attvalues>
-      </node>
-      <node id="opportunity" label="opportunity">
-        <attvalues>
-          <attvalue for="0" value="63" />
-          <attvalue for="1" value="0.02250829092934356" />
-        </attvalues>
-      </node>
-      <node id="project" label="project">
-        <attvalues>
-          <attvalue for="0" value="75" />
-          <attvalue for="1" value="0.01871559239980292" />
-        </attvalues>
-      </node>
-      <node id="opportunities" label="opportunities">
-        <attvalues>
-          <attvalue for="0" value="58" />
-          <attvalue for="1" value="0.04027848083575638" />
-        </attvalues>
-      </node>
-      <node id="science" label="science">
-        <attvalues>
-          <attvalue for="0" value="32" />
-          <attvalue for="1" value="0.022622212095896304" />
-        </attvalues>
-      </node>
-      <node id="machinedriven" label="machinedriven">
-        <attvalues>
-          <attvalue for="0" value="433" />
-          <attvalue for="1" value="0.0386863480516731" />
-        </attvalues>
-      </node>
-      <node id="world" label="world">
-        <attvalues>
-          <attvalue for="0" value="22" />
-          <attvalue for="1" value="0.014014786383207434" />
-        </attvalues>
-      </node>
-      <node id="great" label="great">
-        <attvalues>
-          <attvalue for="0" value="63" />
-          <attvalue for="1" value="0.019558073505441923" />
-        </attvalues>
-      </node>
-      <node id="benefits" label="benefits">
-        <attvalues>
-          <attvalue for="0" value="72" />
-          <attvalue for="1" value="0.009236231604652655" />
+          <attvalue for="0" value="central" />
+          <attvalue for="1" value="12000" />
         </attvalues>
       </node>
       <node id="new" label="new">
         <attvalues>
-          <attvalue for="0" value="75" />
-          <attvalue for="1" value="0.05453162821583875" />
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="2729" />
         </attvalues>
       </node>
-      <node id="thanks" label="thanks">
+      <node id="data" label="data">
         <attvalues>
-          <attvalue for="0" value="22" />
-          <attvalue for="1" value="0.020565668708083566" />
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="1098" />
         </attvalues>
       </node>
-      <node id="take" label="take">
+      <node id="articles" label="articles">
         <attvalues>
-          <attvalue for="0" value="51" />
-          <attvalue for="1" value="0.07671982014087277" />
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="1051" />
         </attvalues>
       </node>
-      <node id="technology" label="technology">
+      <node id="chatgpt" label="chatgpt">
         <attvalues>
-          <attvalue for="0" value="28" />
-          <attvalue for="1" value="0.0165724626250942" />
-        </attvalues>
-      </node>
-      <node id="business" label="business">
-        <attvalues>
-          <attvalue for="0" value="76" />
-          <attvalue for="1" value="0.03947378157904474" />
-        </attvalues>
-      </node>
-      <node id="gpt" label="gpt">
-        <attvalues>
-          <attvalue for="0" value="130" />
-          <attvalue for="1" value="0.1264559485921715" />
-        </attvalues>
-      </node>
-      <node id="models" label="models">
-        <attvalues>
-          <attvalue for="0" value="23" />
-          <attvalue for="1" value="0.14190073772117112" />
-        </attvalues>
-      </node>
-      <node id="work" label="work">
-        <attvalues>
-          <attvalue for="0" value="37" />
-          <attvalue for="1" value="0.04443840473252238" />
-        </attvalues>
-      </node>
-      <node id="bot" label="bot">
-        <attvalues>
-          <attvalue for="0" value="422" />
-          <attvalue for="1" value="0.007401018314331004" />
-        </attvalues>
-      </node>
-      <node id="industry" label="industry">
-        <attvalues>
-          <attvalue for="0" value="24" />
-          <attvalue for="1" value="0.015589722168669535" />
-        </attvalues>
-      </node>
-      <node id="next" label="next">
-        <attvalues>
-          <attvalue for="0" value="25" />
-          <attvalue for="1" value="0.013050838050838048" />
-        </attvalues>
-      </node>
-      <node id="using" label="using">
-        <attvalues>
-          <attvalue for="0" value="51" />
-          <attvalue for="1" value="0.07833817942177072" />
-        </attvalues>
-      </node>
-      <node id="team" label="team">
-        <attvalues>
-          <attvalue for="0" value="69" />
-          <attvalue for="1" value="0.04378209509788457" />
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="944" />
         </attvalues>
       </node>
       <node id="future" label="future">
         <attvalues>
-          <attvalue for="0" value="218" />
-          <attvalue for="1" value="0.005963627016258594" />
-        </attvalues>
-      </node>
-      <node id="help" label="help">
-        <attvalues>
-          <attvalue for="0" value="36" />
-          <attvalue for="1" value="0.0054323843797528006" />
-        </attvalues>
-      </node>
-      <node id="learning" label="learning">
-        <attvalues>
-          <attvalue for="0" value="69" />
-          <attvalue for="1" value="0.023971301602880545" />
-        </attvalues>
-      </node>
-      <node id="openai" label="openai">
-        <attvalues>
-          <attvalue for="0" value="37" />
-          <attvalue for="1" value="0.09956769236954997" />
-        </attvalues>
-      </node>
-      <node id="potential" label="potential">
-        <attvalues>
-          <attvalue for="0" value="116" />
-          <attvalue for="1" value="0.06474765917490377" />
-        </attvalues>
-      </node>
-      <node id="unlock" label="unlock">
-        <attvalues>
-          <attvalue for="0" value="83" />
-          <attvalue for="1" value="0.07844721211594276" />
-        </attvalues>
-      </node>
-      <node id="check" label="check">
-        <attvalues>
-          <attvalue for="0" value="46" />
-          <attvalue for="1" value="0.10255406787914527" />
-        </attvalues>
-      </node>
-      <node id="benefit" label="benefit">
-        <attvalues>
-          <attvalue for="0" value="31" />
-          <attvalue for="1" value="0.03778621905556889" />
-        </attvalues>
-      </node>
-      <node id="tech" label="tech">
-        <attvalues>
-          <attvalue for="0" value="20" />
-          <attvalue for="1" value="0.030081614292140603" />
-        </attvalues>
-      </node>
-      <node id="machine" label="machine">
-        <attvalues>
-          <attvalue for="0" value="59" />
-          <attvalue for="1" value="0.00570336096651886" />
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="825" />
         </attvalues>
       </node>
       <node id="read" label="read">
         <attvalues>
-          <attvalue for="0" value="51" />
-          <attvalue for="1" value="0.007011701748543854" />
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="595" />
+        </attvalues>
+      </node>
+      <node id="gpt" label="gpt">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="514" />
+        </attvalues>
+      </node>
+      <node id="amp" label="amp">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="475" />
+        </attvalues>
+      </node>
+      <node id="better" label="better">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="464" />
+        </attvalues>
+      </node>
+      <node id="today" label="today">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="362" />
+        </attvalues>
+      </node>
+      <node id="news" label="news">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="358" />
+        </attvalues>
+      </node>
+      <node id="openai" label="openai">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="345" />
+        </attvalues>
+      </node>
+      <node id="via" label="via">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="337" />
+        </attvalues>
+      </node>
+      <node id="article" label="article">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="322" />
+        </attvalues>
+      </node>
+      <node id="improve" label="improve">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="280" />
+        </attvalues>
+      </node>
+      <node id="potential" label="potential">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="276" />
+        </attvalues>
+      </node>
+      <node id="tweeted" label="tweeted">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="272" />
+        </attvalues>
+      </node>
+      <node id="science" label="science">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="261" />
+        </attvalues>
+      </node>
+      <node id="learning" label="learning">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="251" />
+        </attvalues>
+      </node>
+      <node id="bot" label="bot">
+        <attvalues>
+          <attvalue for="0" value="palabra" />
+          <attvalue for="1" value="241" />
         </attvalues>
       </node>
     </nodes>
     <edges>
-      <edge source="advantage" target="learn" id="0" weight="6">
+      <edge source="Oportunidades" target="new" id="0" weight="2729">
         <attvalues>
-          <attvalue for="2" value="2.70280527725422" />
+          <attvalue for="2" value="0.21382106998900696" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="advantage" target="thanks" id="1" weight="5">
+      <edge source="Oportunidades" target="data" id="1" weight="1098">
         <attvalues>
-          <attvalue for="2" value="2.7616989663077884" />
+          <attvalue for="2" value="0.37689754098360656" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="advantage" target="business" id="2" weight="9">
+      <edge source="Oportunidades" target="articles" id="2" weight="1051">
         <attvalues>
-          <attvalue for="2" value="2.931623967750101" />
+          <attvalue for="2" value="0.18711493815413893" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="advantage" target="take" id="3" weight="18">
+      <edge source="Oportunidades" target="chatgpt" id="3" weight="944">
         <attvalues>
-          <attvalue for="2" value="5.024733372141583" />
+          <attvalue for="2" value="0.20579555084745763" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="advantage" target="science" id="4" weight="4">
+      <edge source="Oportunidades" target="future" id="4" weight="825">
         <attvalues>
-          <attvalue for="2" value="2.3242936540004906" />
+          <attvalue for="2" value="0.28323563636363636" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="learn" target="benefits" id="5" weight="12">
+      <edge source="Oportunidades" target="read" id="5" weight="595">
         <attvalues>
-          <attvalue for="2" value="1.9803392527831292" />
+          <attvalue for="2" value="0.3540616806722689" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="learn" target="help" id="6" weight="6">
+      <edge source="Oportunidades" target="gpt" id="6" weight="514">
         <attvalues>
-          <attvalue for="2" value="2.7517148777351665" />
+          <attvalue for="2" value="0.19356342412451363" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="learn" target="unlock" id="7" weight="5">
+      <edge source="Oportunidades" target="amp" id="7" weight="475">
         <attvalues>
-          <attvalue for="2" value="2.7920726153513074" />
+          <attvalue for="2" value="0.32461010526315787" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="learn" target="today" id="8" weight="5">
+      <edge source="Oportunidades" target="better" id="8" weight="464">
         <attvalues>
-          <attvalue for="2" value="2.85480837069927" />
+          <attvalue for="2" value="0.5328265086206897" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="learn" target="business" id="9" weight="10">
+      <edge source="Oportunidades" target="today" id="9" weight="362">
         <attvalues>
-          <attvalue for="2" value="2.761698966307789" />
+          <attvalue for="2" value="0.42655828729281764" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="learn" target="world" id="10" weight="4">
+      <edge source="Oportunidades" target="news" id="10" weight="358">
         <attvalues>
-          <attvalue for="2" value="2.4397708714204267" />
+          <attvalue for="2" value="0.25692569832402234" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="amp" target="rss" id="11" weight="74">
+      <edge source="Oportunidades" target="openai" id="11" weight="345">
         <attvalues>
-          <attvalue for="2" value="4.737852224353421" />
+          <attvalue for="2" value="0.20566260869565217" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="amp" target="machinedriven" id="12" weight="74">
+      <edge source="Oportunidades" target="via" id="12" weight="337">
         <attvalues>
-          <attvalue for="2" value="4.737852224353421" />
+          <attvalue for="2" value="0.2178106824925816" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="amp" target="bot" id="13" weight="74">
+      <edge source="Oportunidades" target="article" id="13" weight="322">
         <attvalues>
-          <attvalue for="2" value="4.71848689948649" />
+          <attvalue for="2" value="0.22384503105590065" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="amp" target="trending" id="14" weight="75">
+      <edge source="Oportunidades" target="improve" id="14" weight="280">
         <attvalues>
-          <attvalue for="2" value="4.737852224353421" />
+          <attvalue for="2" value="0.6240032142857143" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="rss" target="bot" id="15" weight="74">
+      <edge source="Oportunidades" target="potential" id="15" weight="276">
         <attvalues>
-          <attvalue for="2" value="6.024733372141583" />
+          <attvalue for="2" value="0.3211115942028986" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="rss" target="trending" id="16" weight="74">
+      <edge source="Oportunidades" target="tweeted" id="16" weight="272">
         <attvalues>
-          <attvalue for="2" value="6.024733372141583" />
+          <attvalue for="2" value="0.4085709558823529" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="rss" target="machinedriven" id="17" weight="74">
+      <edge source="Oportunidades" target="science" id="17" weight="261">
         <attvalues>
-          <attvalue for="2" value="6.044098697008514" />
+          <attvalue for="2" value="0.3453130268199234" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="rss" target="article" id="18" weight="74">
+      <edge source="Oportunidades" target="learning" id="18" weight="251">
         <attvalues>
-          <attvalue for="2" value="5.35873429932952" />
+          <attvalue for="2" value="0.32309003984063744" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
-      <edge source="article" target="trending" id="19" weight="74">
+      <edge source="Oportunidades" target="bot" id="19" weight="241">
         <attvalues>
-          <attvalue for="2" value="5.339368974462589" />
-        </attvalues>
-      </edge>
-      <edge source="article" target="models" id="20" weight="7">
-        <attvalues>
-          <attvalue for="2" value="2.6425272653301115" />
-        </attvalues>
-      </edge>
-      <edge source="article" target="gpt" id="21" weight="22">
-        <attvalues>
-          <attvalue for="2" value="3.3424324870004196" />
-        </attvalues>
-      </edge>
-      <edge source="article" target="machinedriven" id="22" weight="74">
-        <attvalues>
-          <attvalue for="2" value="5.35873429932952" />
-        </attvalues>
-      </edge>
-      <edge source="article" target="check" id="23" weight="20">
-        <attvalues>
-          <attvalue for="2" value="3.847772380052141" />
-        </attvalues>
-      </edge>
-      <edge source="article" target="bot" id="24" weight="74">
-        <attvalues>
-          <attvalue for="2" value="5.339368974462589" />
-        </attvalues>
-      </edge>
-      <edge source="trending" target="future" id="25" weight="52">
-        <attvalues>
-          <attvalue for="2" value="2.0369227811494963" />
-        </attvalues>
-      </edge>
-      <edge source="trending" target="bot" id="26" weight="74">
-        <attvalues>
-          <attvalue for="2" value="6.005368047274652" />
-        </attvalues>
-      </edge>
-      <edge source="trending" target="machinedriven" id="27" weight="74">
-        <attvalues>
-          <attvalue for="2" value="6.024733372141583" />
-        </attvalues>
-      </edge>
-      <edge source="analytics" target="today" id="28" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.792072615351308" />
-        </attvalues>
-      </edge>
-      <edge source="analytics" target="unlock" id="29" weight="6">
-        <attvalues>
-          <attvalue for="2" value="3.729336860003345" />
-        </attvalues>
-      </edge>
-      <edge source="analytics" target="industry" id="30" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.698963210959826" />
-        </attvalues>
-      </edge>
-      <edge source="analytics" target="tech" id="31" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.792072615351308" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="great" id="32" weight="5">
-        <attvalues>
-          <attvalue for="2" value="2.81684052050025" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="take" id="33" weight="4">
-        <attvalues>
-          <attvalue for="2" value="3.269845869978114" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="tech" id="34" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.8548083706992706" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="models" id="35" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.8230995109719323" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="science" id="36" weight="6">
-        <attvalues>
-          <attvalue for="2" value="3.3242936540004906" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="read" id="37" weight="11">
-        <attvalues>
-          <attvalue for="2" value="3.8635785803270024" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="unlock" id="38" weight="5">
-        <attvalues>
-          <attvalue for="2" value="3.529038209517514" />
-        </attvalues>
-      </edge>
-      <edge source="today" target="new" id="39" weight="12">
-        <attvalues>
-          <attvalue for="2" value="3.39246515664207" />
-        </attvalues>
-      </edge>
-      <edge source="opportunity" target="project" id="40" weight="10">
-        <attvalues>
-          <attvalue for="2" value="2.9168223653987404" />
-        </attvalues>
-      </edge>
-      <edge source="opportunity" target="world" id="41" weight="6">
-        <attvalues>
-          <attvalue for="2" value="2.5256316080742645" />
-        </attvalues>
-      </edge>
-      <edge source="opportunity" target="great" id="42" weight="25">
-        <attvalues>
-          <attvalue for="2" value="3.9027012571540878" />
-        </attvalues>
-      </edge>
-      <edge source="opportunity" target="team" id="43" weight="7">
-        <attvalues>
-          <attvalue for="2" value="2.8735549114945713" />
-        </attvalues>
-      </edge>
-      <edge source="opportunity" target="next" id="44" weight="6">
-        <attvalues>
-          <attvalue for="2" value="2.651162490158123" />
-        </attvalues>
-      </edge>
-      <edge source="opportunity" target="learning" id="45" weight="9">
-        <attvalues>
-          <attvalue for="2" value="2.587032152738408" />
-        </attvalues>
-      </edge>
-      <edge source="project" target="potential" id="46" weight="17">
-        <attvalues>
-          <attvalue for="2" value="2.301753109546748" />
-        </attvalues>
-      </edge>
-      <edge source="project" target="team" id="47" weight="19">
-        <attvalues>
-          <attvalue for="2" value="5.111310619880865" />
-        </attvalues>
-      </edge>
-      <edge source="project" target="great" id="48" weight="22">
-        <attvalues>
-          <attvalue for="2" value="4.515459803016973" />
-        </attvalues>
-      </edge>
-      <edge source="project" target="next" id="49" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.448345607158436" />
-        </attvalues>
-      </edge>
-      <edge source="project" target="technology" id="50" weight="4">
-        <attvalues>
-          <attvalue for="2" value="2.1935317081296106" />
-        </attvalues>
-      </edge>
-      <edge source="opportunities" target="science" id="51" weight="9">
-        <attvalues>
-          <attvalue for="2" value="2.3030771680907947" />
-        </attvalues>
-      </edge>
-      <edge source="opportunities" target="check" id="52" weight="10">
-        <attvalues>
-          <attvalue for="2" value="2.6445580603995573" />
-        </attvalues>
-      </edge>
-      <edge source="opportunities" target="new" id="53" weight="29">
-        <attvalues>
-          <attvalue for="2" value="3.059304664417634" />
-        </attvalues>
-      </edge>
-      <edge source="opportunities" target="thanks" id="54" weight="10">
-        <attvalues>
-          <attvalue for="2" value="2.5705574789557804" />
-        </attvalues>
-      </edge>
-      <edge source="science" target="work" id="55" weight="9">
-        <attvalues>
-          <attvalue for="2" value="3.0260698197043965" />
-        </attvalues>
-      </edge>
-      <edge source="science" target="unlock" id="56" weight="4">
-        <attvalues>
-          <attvalue for="2" value="2.6765953979313717" />
-        </attvalues>
-      </edge>
-      <edge source="machinedriven" target="bot" id="57" weight="74">
-        <attvalues>
-          <attvalue for="2" value="6.024733372141583" />
-        </attvalues>
-      </edge>
-      <edge source="machinedriven" target="gpt" id="58" weight="12">
-        <attvalues>
-          <attvalue for="2" value="3.1533277667632724" />
-        </attvalues>
-      </edge>
-      <edge source="machinedriven" target="future" id="59" weight="51">
-        <attvalues>
-          <attvalue for="2" value="2.0282737298468314" />
-        </attvalues>
-      </edge>
-      <edge source="world" target="new" id="60" weight="7">
-        <attvalues>
-          <attvalue for="2" value="2.5217481735870364" />
-        </attvalues>
-      </edge>
-      <edge source="world" target="read" id="61" weight="5">
-        <attvalues>
-          <attvalue for="2" value="2.6329656521855855" />
-        </attvalues>
-      </edge>
-      <edge source="great" target="team" id="62" weight="11">
-        <attvalues>
-          <attvalue for="2" value="3.986765521942562" />
-        </attvalues>
-      </edge>
-      <edge source="benefits" target="business" id="63" weight="23">
-        <attvalues>
-          <attvalue for="2" value="2.5627948978937107" />
-        </attvalues>
-      </edge>
-      <edge source="benefits" target="technology" id="64" weight="13">
-        <attvalues>
-          <attvalue for="2" value="2.19535214375398" />
-        </attvalues>
-      </edge>
-      <edge source="benefits" target="using" id="65" weight="24">
-        <attvalues>
-          <attvalue for="2" value="3.351176948151438" />
-        </attvalues>
-      </edge>
-      <edge source="new" target="take" id="66" weight="7">
-        <attvalues>
-          <attvalue for="2" value="2.614857577978518" />
-        </attvalues>
-      </edge>
-      <edge source="new" target="openai" id="67" weight="6">
-        <attvalues>
-          <attvalue for="2" value="2.4580534982696465" />
-        </attvalues>
-      </edge>
-      <edge source="new" target="read" id="68" weight="14">
-        <attvalues>
-          <attvalue for="2" value="2.7491586696901087" />
-        </attvalues>
-      </edge>
-      <edge source="thanks" target="benefit" id="69" weight="4">
-        <attvalues>
-          <attvalue for="2" value="2.117842776533064" />
-        </attvalues>
-      </edge>
-      <edge source="thanks" target="learning" id="70" weight="3">
-        <attvalues>
-          <attvalue for="2" value="1.8230995109719321" />
-        </attvalues>
-      </edge>
-      <edge source="take" target="technology" id="71" weight="5">
-        <attvalues>
-          <attvalue for="2" value="2.9543440442501847" />
-        </attvalues>
-      </edge>
-      <edge source="take" target="industry" id="72" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.761698966307789" />
-        </attvalues>
-      </edge>
-      <edge source="take" target="work" id="73" weight="5">
-        <attvalues>
-          <attvalue for="2" value="2.7085876298482265" />
-        </attvalues>
-      </edge>
-      <edge source="take" target="team" id="74" weight="4">
-        <attvalues>
-          <attvalue for="2" value="3.3022673476704916" />
-        </attvalues>
-      </edge>
-      <edge source="take" target="next" id="75" weight="5">
-        <attvalues>
-          <attvalue for="2" value="3.6241954425578538" />
-        </attvalues>
-      </edge>
-      <edge source="technology" target="business" id="76" weight="6">
-        <attvalues>
-          <attvalue for="2" value="2.124269045692497" />
-        </attvalues>
-      </edge>
-      <edge source="business" target="using" id="77" weight="8">
-        <attvalues>
-          <attvalue for="2" value="2.8106085667887353" />
-        </attvalues>
-      </edge>
-      <edge source="business" target="benefit" id="78" weight="8">
-        <attvalues>
-          <attvalue for="2" value="2.4397708714204267" />
-        </attvalues>
-      </edge>
-      <edge source="business" target="unlock" id="79" weight="12">
-        <attvalues>
-          <attvalue for="2" value="3.698963210959826" />
-        </attvalues>
-      </edge>
-      <edge source="gpt" target="models" id="80" weight="10">
-        <attvalues>
-          <attvalue for="2" value="3.576184770501415" />
-        </attvalues>
-      </edge>
-      <edge source="gpt" target="future" id="81" weight="63">
-        <attvalues>
-          <attvalue for="2" value="2.066848246037804" />
-        </attvalues>
-      </edge>
-      <edge source="gpt" target="openai" id="82" weight="14">
-        <attvalues>
-          <attvalue for="2" value="4.158908799026572" />
-        </attvalues>
-      </edge>
-      <edge source="gpt" target="check" id="83" weight="9">
-        <attvalues>
-          <attvalue for="2" value="3.114853618948637" />
-        </attvalues>
-      </edge>
-      <edge source="models" target="check" id="84" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.482062593136865" />
-        </attvalues>
-      </edge>
-      <edge source="work" target="team" id="85" weight="5">
-        <attvalues>
-          <attvalue for="2" value="2.7410091075406036" />
-        </attvalues>
-      </edge>
-      <edge source="work" target="learning" id="86" weight="6">
-        <attvalues>
-          <attvalue for="2" value="2.354950675233526" />
-        </attvalues>
-      </edge>
-      <edge source="work" target="using" id="87" weight="7">
-        <attvalues>
-          <attvalue for="2" value="2.827886558220571" />
-        </attvalues>
-      </edge>
-      <edge source="work" target="machine" id="88" weight="5">
-        <attvalues>
-          <attvalue for="2" value="2.445553224014432" />
-        </attvalues>
-      </edge>
-      <edge source="bot" target="future" id="89" weight="52">
-        <attvalues>
-          <attvalue for="2" value="2.0369227811494963" />
-        </attvalues>
-      </edge>
-      <edge source="industry" target="next" id="90" weight="5">
-        <attvalues>
-          <attvalue for="2" value="3.5310860381663725" />
-        </attvalues>
-      </edge>
-      <edge source="industry" target="tech" id="91" weight="6">
-        <attvalues>
-          <attvalue for="2" value="3.761698966307789" />
-        </attvalues>
-      </edge>
-      <edge source="industry" target="team" id="92" weight="4">
-        <attvalues>
-          <attvalue for="2" value="3.2091579432790103" />
-        </attvalues>
-      </edge>
-      <edge source="industry" target="machine" id="93" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.498664560473995" />
-        </attvalues>
-      </edge>
-      <edge source="next" target="tech" id="94" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.8872298483916476" />
-        </attvalues>
-      </edge>
-      <edge source="next" target="team" id="95" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.9196513260840256" />
-        </attvalues>
-      </edge>
-      <edge source="using" target="check" id="96" weight="4">
-        <attvalues>
-          <attvalue for="2" value="2.5626810533451496" />
-        </attvalues>
-      </edge>
-      <edge source="using" target="benefit" id="97" weight="8">
-        <attvalues>
-          <attvalue for="2" value="3.1667523770140105" />
-        </attvalues>
-      </edge>
-      <edge source="team" target="potential" id="98" weight="13">
-        <attvalues>
-          <attvalue for="2" value="2.3860357053630894" />
-        </attvalues>
-      </edge>
-      <edge source="team" target="help" id="99" weight="3">
-        <attvalues>
-          <attvalue for="2" value="2.52110194959375" />
-        </attvalues>
-      </edge>
-      <edge source="help" target="unlock" id="100" weight="8">
-        <attvalues>
-          <attvalue for="2" value="3.840982215832254" />
-        </attvalues>
-      </edge>
-      <edge source="help" target="potential" id="101" weight="19">
-        <attvalues>
-          <attvalue for="2" value="2.5349741241753083" />
-        </attvalues>
-      </edge>
-      <edge source="learning" target="machine" id="102" weight="47">
-        <attvalues>
-          <attvalue for="2" value="5.9447289553734635" />
-        </attvalues>
-      </edge>
-      <edge source="learning" target="unlock" id="103" weight="4">
-        <attvalues>
-          <attvalue for="2" value="2.590438754181657" />
-        </attvalues>
-      </edge>
-      <edge source="openai" target="potential" id="104" weight="11">
-        <attvalues>
-          <attvalue for="2" value="2.178194469794494" />
-        </attvalues>
-      </edge>
-      <edge source="openai" target="benefit" id="105" weight="6">
-        <attvalues>
-          <attvalue for="2" value="3.183431118160641" />
-        </attvalues>
-      </edge>
-      <edge source="potential" target="unlock" id="106" weight="35">
-        <attvalues>
-          <attvalue for="2" value="3.7197217711266237" />
-        </attvalues>
-      </edge>
-      <edge source="potential" target="read" id="107" weight="21">
-        <attvalues>
-          <attvalue for="2" value="2.179793024019971" />
-        </attvalues>
-      </edge>
-      <edge source="unlock" target="machine" id="108" weight="4">
-        <attvalues>
-          <attvalue for="2" value="2.944075708796358" />
-        </attvalues>
-      </edge>
-      <edge source="benefit" target="tech" id="109" weight="5">
-        <attvalues>
-          <attvalue for="2" value="2.85480837069927" />
+          <attvalue for="2" value="0.2017398340248963" />
+          <attvalue for="3" value="positivo" />
         </attvalues>
       </edge>
     </edges>

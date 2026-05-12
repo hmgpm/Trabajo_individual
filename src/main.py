@@ -26,18 +26,20 @@ warnings.filterwarnings('ignore')
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
 
 # Análisis de sentimiento
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-# Topic Modelling (opcional - requiere C++ build tools)
+# Topic Modelling - BERT + KMeans (sin dependencias C++)
 try:
-    from bertopic import BERTopic
-    from sklearn.feature_extraction.text import CountVectorizer
-    BERTOPIC_AVAILABLE = True
+    from sentence_transformers import SentenceTransformer
+    from sklearn.cluster import KMeans
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    BERT_AVAILABLE = True
 except ImportError:
-    BERTOPIC_AVAILABLE = False
-    print("[WARNING] BERTopic no disponible. Topic modelling sera omitido.")
+    BERT_AVAILABLE = False
+    print("[WARNING] BERT no disponible. Topic modelling sera omitido.")
 
 # Visualización
 import matplotlib.pyplot as plt
@@ -50,9 +52,7 @@ except LookupError:
     nltk.download('stopwords', quiet=True)
     nltk.download('punkt', quiet=True)
 
-# ============================================================================
 # CONFIGURACIÓN DE RUTAS
-# ============================================================================
 
 # Obtener ruta base del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -66,14 +66,13 @@ IMAGES_DIR = BASE_DIR / "data" / "imagenes"
 CLEAN_DATA_DIR.mkdir(parents=True, exist_ok=True)
 IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
-print(f"📁 Directorio base: {BASE_DIR}")
-print(f"📊 Datos raw: {RAW_DATA_DIR}")
-print(f"✅ Datos clean: {CLEAN_DATA_DIR}")
-print(f"🎨 Imágenes: {IMAGES_DIR}\n")
+print(f" Directorio base: {BASE_DIR}")
+print(f" Datos raw: {RAW_DATA_DIR}")
+print(f" Datos clean: {CLEAN_DATA_DIR}")
+print(f" Imágenes: {IMAGES_DIR}\n")
 
-# ============================================================================
 # 1. CARGA DE DATOS
-# ============================================================================
+
 
 def cargar_datos():
     """
@@ -83,19 +82,19 @@ def cargar_datos():
         tuple: (df_twitter, df_reddit)
     """
     print("=" * 70)
-    print("📥 PASO 1: CARGANDO DATOS")
+    print(" PASO 1: CARGANDO DATOS")
     print("=" * 70)
     
     # Cargar Twitter
     twitter_path = RAW_DATA_DIR / "Twitter_Final_data.csv"
-    print(f"\n🐦 Cargando Twitter desde: {twitter_path}")
+    print(f"\n Cargando Twitter desde: {twitter_path}")
     df_twitter = pd.read_csv(twitter_path)
     print(f"   ✓ Twitter: {len(df_twitter):,} filas, {len(df_twitter.columns)} columnas")
     print(f"   Columnas: {list(df_twitter.columns)}")
     
     # Cargar Reddit
     reddit_path = RAW_DATA_DIR / "reddit_comments_combined.csv"
-    print(f"\n🔴 Cargando Reddit desde: {reddit_path}")
+    print(f"\n Cargando Reddit desde: {reddit_path}")
     df_reddit = pd.read_csv(reddit_path)
     print(f"   ✓ Reddit: {len(df_reddit):,} filas, {len(df_reddit.columns)} columnas")
     print(f"   Columnas: {list(df_reddit.columns)}")
@@ -103,9 +102,7 @@ def cargar_datos():
     return df_twitter, df_reddit
 
 
-# ============================================================================
 # 2. LIMPIEZA DE TEXTO
-# ============================================================================
 
 def limpiar_texto(texto):
     """
@@ -152,30 +149,24 @@ def limpiar_texto(texto):
     return texto
 
 
-def eliminar_stopwords(texto, idioma='english'):
-    """
-    Elimina stopwords de un texto.
-    
-    Args:
-        texto (str): Texto limpio
-        idioma (str): Idioma de las stopwords
-        
-    Returns:
-        str: Texto sin stopwords
-    """
+lemmatizer = WordNetLemmatizer()
+
+def lemmatize_text(texto):
+    """Lematiza y elimina stopwords (como en el notebook)."""
     if not texto:
         return ""
-    
-    stop_words = set(stopwords.words(idioma))
-    
-    # Añadir stopwords personalizadas (muy comunes pero poco informativas)
-    stop_words_custom = {'ai', 'ia', 'like', 'just', 'get', 'one', 'would', 'could'}
-    stop_words.update(stop_words_custom)
-    
+    stop_words = set(stopwords.words('english')).union({
+        'ai', 'ia', 'use', 'make', 'get', 'would', 'could',
+        'like', 'just', 'one', 'also', 'really', 'even', 'way',
+        'see', 'say', 'need', 'well', 'going', 'want', 'time',
+        'much', 'thing', 'people', 'think', 'know'
+    })
     palabras = texto.split()
-    palabras_filtradas = [p for p in palabras if p not in stop_words and len(p) > 2]
-    
-    return ' '.join(palabras_filtradas)
+    palabras_limpias = [
+        lemmatizer.lemmatize(p) for p in palabras
+        if p not in stop_words and len(p) > 2
+    ]
+    return " ".join(palabras_limpias)
 
 
 def preprocesar_datasets(df_twitter, df_reddit):
@@ -194,7 +185,7 @@ def preprocesar_datasets(df_twitter, df_reddit):
     print("=" * 70)
     
     # Twitter: identificar columna de texto
-    # Asumiendo que la columna se llama 'content', 'text', 'tweet', etc.
+    # Asumiendo que la columna se llama 'content', 'text', 'tweet'.
     posibles_columnas_twitter = ['content', 'text', 'tweet', 'full_text']
     columna_twitter = None
     for col in posibles_columnas_twitter:
@@ -205,7 +196,7 @@ def preprocesar_datasets(df_twitter, df_reddit):
     if columna_twitter is None:
         raise ValueError(f"No se encontró columna de texto en Twitter. Columnas: {df_twitter.columns}")
     
-    print(f"\n🐦 Twitter: usando columna '{columna_twitter}'")
+    print(f"\n Twitter: usando columna '{columna_twitter}'")
     
     # Reddit: identificar columna de texto
     posibles_columnas_reddit = ['Comment Body', 'body', 'text', 'comment']
@@ -218,19 +209,19 @@ def preprocesar_datasets(df_twitter, df_reddit):
     if columna_reddit is None:
         raise ValueError(f"No se encontró columna de texto en Reddit. Columnas: {df_reddit.columns}")
     
-    print(f"🔴 Reddit: usando columna '{columna_reddit}'")
+    print(f" Reddit: usando columna '{columna_reddit}'")
     
     # Limpieza Twitter
     print("\n   Limpiando textos de Twitter...")
     df_twitter['texto_original'] = df_twitter[columna_twitter]
     df_twitter['texto_limpio'] = df_twitter[columna_twitter].apply(limpiar_texto)
-    df_twitter['texto_sin_stopwords'] = df_twitter['texto_limpio'].apply(eliminar_stopwords)
+    df_twitter['texto_sin_stopwords'] = df_twitter['texto_limpio'].apply(lemmatize_text)
     
     # Limpieza Reddit
     print("   Limpiando textos de Reddit...")
     df_reddit['texto_original'] = df_reddit[columna_reddit]
     df_reddit['texto_limpio'] = df_reddit[columna_reddit].apply(limpiar_texto)
-    df_reddit['texto_sin_stopwords'] = df_reddit['texto_limpio'].apply(eliminar_stopwords)
+    df_reddit['texto_sin_stopwords'] = df_reddit['texto_limpio'].apply(lemmatize_text)
     
     # Eliminar textos vacíos
     df_twitter = df_twitter[df_twitter['texto_limpio'].str.len() > 10].copy()
@@ -246,9 +237,7 @@ def preprocesar_datasets(df_twitter, df_reddit):
     return df_twitter, df_reddit
 
 
-# ============================================================================
 # 3. ANÁLISIS DE SENTIMIENTO CON VADER
-# ============================================================================
 
 def analizar_sentimiento_vader(df, columna_texto='texto_limpio'):
     """
@@ -262,7 +251,7 @@ def analizar_sentimiento_vader(df, columna_texto='texto_limpio'):
         DataFrame con columnas de sentimiento añadidas
     """
     print("\n" + "=" * 70)
-    print("😊 PASO 3: ANÁLISIS DE SENTIMIENTO (VADER)")
+    print(" PASO 3: ANÁLISIS DE SENTIMIENTO (VADER)")
     print("=" * 70)
     
     analyzer = SentimentIntensityAnalyzer()
@@ -286,17 +275,15 @@ def analizar_sentimiento_vader(df, columna_texto='texto_limpio'):
     df['sentimiento'] = df['vader_compound'].apply(clasificar_sentimiento)
     
     # Estadísticas
-    print("\n📊 Distribución de sentimiento:")
+    print("\n Distribución de sentimiento:")
     print(df['sentimiento'].value_counts())
-    print(f"\n📈 Polaridad media: {df['vader_compound'].mean():.3f}")
-    print(f"📏 Desviación estándar: {df['vader_compound'].std():.3f}")
+    print(f"\n Polaridad media: {df['vader_compound'].mean():.3f}")
+    print(f" Desviación estándar: {df['vader_compound'].std():.3f}")
     
     return df
 
 
-# ============================================================================
 # 4. ASPECT-BASED SENTIMENT ANALYSIS (ABSA)
-# ============================================================================
 
 def detectar_aspectos(df, columna_texto='texto_limpio'):
     """
@@ -351,7 +338,7 @@ def detectar_aspectos(df, columna_texto='texto_limpio'):
     df['num_aspectos'] = df[columnas_aspectos].sum(axis=1)
     
     # Estadísticas
-    print("\n📊 Frecuencia de aspectos detectados:")
+    print("\n Frecuencia de aspectos detectados:")
     for aspecto in aspectos.keys():
         count = df[f'aspecto_{aspecto}'].sum()
         pct = (count / len(df)) * 100
@@ -362,89 +349,83 @@ def detectar_aspectos(df, columna_texto='texto_limpio'):
     return df
 
 
-# ============================================================================
-# 5. TOPIC MODELLING CON BERTOPIC
-# ============================================================================
+# 5. TOPIC MODELLING CON BERT + KMEANS
 
 def aplicar_topic_modelling(df, columna_texto='texto_sin_stopwords', n_topics=10):
     """
-    Aplica BERTopic para identificar temas principales.
+    Aplica BERT embeddings + KMeans para identificar temas principales.
     
     Args:
         df: DataFrame
         columna_texto: Columna con texto procesado
-        n_topics: Número aproximado de tópicos a extraer
+        n_topics: Número de tópicos a extraer
         
     Returns:
-        tuple: (df con columnas de tópicos, modelo BERTopic o None)
+        tuple: (df con columnas de tópicos, diccionario con info de tópicos o None)
     """
-    if not BERTOPIC_AVAILABLE:
-        print("\n⚠️  BERTopic no disponible. Omitiendo topic modelling.")
-        df['topic'] = -1  # Asignar tópico por defecto
+    if not BERT_AVAILABLE:
+        print("\nBERT topic modelling omitido (sentence-transformers no disponible)")
+        df['topic'] = -1
         return df, None
     
     print("\n" + "=" * 70)
-    print("📚 PASO 5: TOPIC MODELLING (BERTOPIC)")
+    print("PASO 5: TOPIC MODELLING (BERT + K-MEANS)")
     print("=" * 70)
     
     # Preparar textos
     textos = df[columna_texto].tolist()
     
     print(f"\n   Analizando {len(textos):,} textos...")
-    print("   Esto puede tardar varios minutos...")
-    
-    # Configurar BERTopic
-    vectorizer_model = CountVectorizer(
-        ngram_range=(1, 2),
-        stop_words='english',
-        min_df=5
-    )
-    
-    topic_model = BERTopic(
-        vectorizer_model=vectorizer_model,
-        nr_topics=n_topics,
-        language='english',
-        calculate_probabilities=False,
-        verbose=False
-    )
-    
-    # Entrenar modelo
-    topics, probabilities = topic_model.fit_transform(textos)
-    
-    # Añadir tópicos al DataFrame
-    df['topic'] = topics
-    
-    # Obtener información de tópicos
-    topic_info = topic_model.get_topic_info()
-    
-    print("\n✅ Tópicos identificados:")
-    print(topic_info[['Topic', 'Count', 'Name']].to_string(index=False))
-    
-    # Guardar visualizaciones
-    print("\n   Guardando visualizaciones de tópicos...")
+    print("   Extrayendo embeddings BERT...")
     
     try:
-        # Visualización de tópicos
-        fig = topic_model.visualize_topics()
-        fig.write_html(str(IMAGES_DIR / "topics_visualization.html"))
-        print("   ✓ topics_visualization.html")
+        # Cargar modelo BERT pre-entrenado
+        model = SentenceTransformer('all-MiniLM-L6-v2')
+        
+        # Generar embeddings
+        embeddings = model.encode(textos, show_progress_bar=False, batch_size=32)
+        
+        print(f"   Embeddings generados: {embeddings.shape}")
+        print(f"   Clustering en {n_topics} topicos...")
+        
+        # Clustering con KMeans
+        kmeans = KMeans(n_clusters=n_topics, random_state=42, n_init=10)
+        topics = kmeans.fit_predict(embeddings)
+        
+        # Asignar tópicos al DataFrame
+        df['topic'] = topics
+        
+        # Extraer palabras representativas por tópico
+        print("\n   Topicos identificados:")
+        
+        vectorizer = TfidfVectorizer(max_features=1000, stop_words='english')
+        tfidf_matrix = vectorizer.fit_transform(textos)
+        feature_names = vectorizer.get_feature_names_out()
+        
+        topic_words = {}
+        for topic_id in range(n_topics):
+            topic_mask = topics == topic_id
+            if topic_mask.sum() > 0:
+                # Palabras más frecuentes en este tópico
+                topic_tfidf = tfidf_matrix[topic_mask].mean(axis=0).A1
+                top_idx = topic_tfidf.argsort()[-5:][::-1]
+                top_words = [feature_names[i] for i in top_idx]
+                topic_words[topic_id] = top_words
+                
+                count = topic_mask.sum()
+                print(f"   • Topico {topic_id} ({count} docs): {', '.join(top_words)}")
+        
+        print("\n   Topic modelling completado exitosamente")
+        return df, topic_words
+        
     except Exception as e:
-        print(f"   ⚠ No se pudo generar visualización de tópicos: {e}")
-    
-    try:
-        # Barchart de tópicos
-        fig = topic_model.visualize_barchart(top_n_topics=10)
-        fig.write_html(str(IMAGES_DIR / "topics_barchart.html"))
-        print("   ✓ topics_barchart.html")
-    except Exception as e:
-        print(f"   ⚠ No se pudo generar barchart: {e}")
-    
-    return df, topic_model
+        print(f"\n   Error en BERT topic modelling: {e}")
+        print("   Asignando tópico por defecto...")
+        df['topic'] = -1
+        return df, None
 
 
-# ============================================================================
 # 6. UNIFICACIÓN DE DATASETS
-# ============================================================================
 
 def unificar_datasets(df_twitter, df_reddit):
     """
@@ -458,7 +439,7 @@ def unificar_datasets(df_twitter, df_reddit):
         DataFrame unificado
     """
     print("\n" + "=" * 70)
-    print("🔗 PASO 6: UNIFICACIÓN DE DATASETS")
+    print(" PASO 6: UNIFICACIÓN DE DATASETS")
     print("=" * 70)
     
     # Seleccionar columnas relevantes
@@ -482,7 +463,7 @@ def unificar_datasets(df_twitter, df_reddit):
     # Unificar
     df_unificado = pd.concat([df_twitter_final, df_reddit_final], ignore_index=True)
     
-    print(f"\n✅ Dataset unificado:")
+    print(f"\n Dataset unificado:")
     print(f"   • Twitter: {len(df_twitter_final):,} registros")
     print(f"   • Reddit:  {len(df_reddit_final):,} registros")
     print(f"   • TOTAL:   {len(df_unificado):,} registros")
@@ -490,9 +471,7 @@ def unificar_datasets(df_twitter, df_reddit):
     return df_unificado
 
 
-# ============================================================================
 # 7. EXPORTACIÓN PARA GEPHI
-# ============================================================================
 
 def exportar_para_gephi(df, columna_texto='texto_sin_stopwords'):
     """
@@ -512,7 +491,7 @@ def exportar_para_gephi(df, columna_texto='texto_sin_stopwords'):
         None (guarda archivo CSV)
     """
     print("\n" + "=" * 70)
-    print("🕸️ PASO 7: PREPARACIÓN PARA GEPHI")
+    print(" PASO 7: PREPARACIÓN PARA GEPHI")
     print("=" * 70)
     
     from collections import Counter
@@ -562,19 +541,17 @@ def exportar_para_gephi(df, columna_texto='texto_sin_stopwords'):
     output_path = CLEAN_DATA_DIR / "gephi_global_con_sentimiento.csv"
     df_gephi.to_csv(output_path, index=False)
     
-    print(f"\n✅ Archivo Gephi guardado: {output_path}")
+    print(f"\n Archivo Gephi guardado: {output_path}")
     print(f"   • {len(df_gephi):,} conexiones (aristas)")
     print(f"   • {len(set(df_gephi['Source']) | set(df_gephi['Target'])):,} palabras únicas (nodos)")
     
     # Mostrar top conexiones
     top_conexiones = df_gephi.nlargest(10, 'Weight')[['Source', 'Target', 'Weight', 'Sentiment']]
-    print("\n📊 Top 10 conexiones más frecuentes:")
+    print("\n Top 10 conexiones más frecuentes:")
     print(top_conexiones.to_string(index=False))
 
 
-# ============================================================================
 # 8. VISUALIZACIONES PRINCIPALES
-# ============================================================================
 
 def generar_visualizaciones(df):
     """
@@ -584,7 +561,7 @@ def generar_visualizaciones(df):
         df: DataFrame unificado
     """
     print("\n" + "=" * 70)
-    print("📊 PASO 8: GENERANDO VISUALIZACIONES")
+    print(" PASO 8: GENERANDO VISUALIZACIONES")
     print("=" * 70)
     
     sns.set_theme(style="whitegrid", palette="husl")
@@ -684,9 +661,7 @@ def generar_visualizaciones(df):
     print("\n Todas las visualizaciones generadas correctamente")
 
 
-# ============================================================================
 # 9. EXPORTACIÓN DE DATOS FINALES
-# ============================================================================
 
 def exportar_datos(df_unificado, df_twitter, df_reddit):
     """
@@ -719,9 +694,7 @@ def exportar_datos(df_unificado, df_twitter, df_reddit):
     print("\n Exportación completada")
 
 
-# ============================================================================
 # PIPELINE PRINCIPAL
-# ============================================================================
 
 def main():
     """
@@ -747,11 +720,11 @@ def main():
         df_reddit = detectar_aspectos(df_reddit)
         
         # 5. Topic modelling
-        if BERTOPIC_AVAILABLE:
+        if BERT_AVAILABLE:
             df_twitter, twitter_topic_model = aplicar_topic_modelling(df_twitter, n_topics=8)
             df_reddit, reddit_topic_model = aplicar_topic_modelling(df_reddit, n_topics=8)
         else:
-            print("\n⚠️  Topic modelling omitido (BERTopic no disponible)")
+            print("\nBERT topic modelling omitido (sentence-transformers no disponible)")
             df_twitter['topic'] = -1
             df_reddit['topic'] = -1
             twitter_topic_model = None
@@ -769,18 +742,47 @@ def main():
         # 9. Exportar datos finales
         exportar_datos(df_unificado, df_twitter, df_reddit)
         
-        print("\n" + "=" * 70)
-        print("✅ ANÁLISIS COMPLETADO EXITOSAMENTE")
-        print("=" * 70)
-        print(f"\n📁 Los archivos están listos en:")
-        print(f"   • Datos limpios: {CLEAN_DATA_DIR}")
-        print(f"   • Visualizaciones: {IMAGES_DIR}")
-        print("\n🎯 Próximos pasos:")
-        print("   1. Importar 'gephi_global_con_sentimiento.csv' en Gephi")
-        print("   2. Ejecutar 'streamlit run notebooks/dashboard.py'")
-        
+        # ===== PRECÁLCULO DE TÓPICOS PARA DASHBOARD =====
+        if BERT_AVAILABLE:
+            try:
+                print("\n Precalculando tópicos (BERT + KMeans) para el dashboard...")
+                from sklearn.cluster import KMeans
+                from sentence_transformers import SentenceTransformer
+                model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+                textos = df_unificado['texto_limpio'].fillna("").tolist()
+                if len(textos) > 50:
+                    embeddings = model.encode(textos, show_progress_bar=False, batch_size=32)
+                    n_clusters = min(5, len(textos) // 10 + 1)
+                    kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+                    clusters = kmeans.fit_predict(embeddings)
+                    df_unificado['topic_precalc'] = clusters
+                    # Guardar con la columna adicional
+                    df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
+                    print("   ✔ Tópicos precalculados guardados en 'datos_unificados.csv'")
+                else:
+                    print("    Pocos textos para topic modelling. Se omitirá.")
+                    df_unificado['topic_precalc'] = -1
+                    df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
+            except Exception as e:
+                print(f"    Error precalculando tópicos: {e}")
+                df_unificado['topic_precalc'] = -1
+                df_unificado.to_csv(CLEAN_DATA_DIR / "datos_unificados.csv", index=False)
+        else:
+            print("\n BERT no disponible, no se precalcularán tópicos. El dashboard usará TF-IDF.")
+
+            
+            print("\n" + "=" * 70)
+            print(" ANÁLISIS COMPLETADO EXITOSAMENTE")
+            print("=" * 70)
+            print(f"\n Los archivos están listos en:")
+            print(f"   • Datos limpios: {CLEAN_DATA_DIR}")
+            print(f"   • Visualizaciones: {IMAGES_DIR}")
+            print("\n Próximos pasos:")
+            print("   1. Importar 'gephi_global_con_sentimiento.csv' en Gephi")
+            print("   2. Ejecutar 'streamlit run notebooks/dashboard.py'")
+            
     except Exception as e:
-        print(f"\n❌ ERROR: {e}")
+        print(f"\n ERROR: {e}")
         import traceback
         traceback.print_exc()
 

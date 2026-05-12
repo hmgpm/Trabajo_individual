@@ -1,30 +1,33 @@
-# Core Data Processing
+# CORE DATA PROCESSING
 pandas>=2.1.0
 numpy>=1.26.0
 
-# NLP y Sentiment Analysis
+# NLP Y SENTIMENT ANALYSIS
 vaderSentiment>=3.3.2
 nltk>=3.8.1
 
-# Visualización
+# VISUALIZACIÓN
 matplotlib>=3.8.0
 seaborn>=0.13.0
 plotly>=5.18.0
+wordcloud>=1.9.3
 
-# Dashboard
+# DASHBOARD
 streamlit>=1.28.0
 
-# Network Analysis
+# NETWORK ANALYSIS / GEPHI EXPORT
 networkx>=3.2
 
-# Utilidades
-Pillow>=10.1.0
-
-# Jupyter (opcional, para notebooks)
-jupyter>=1.0.0
-ipykernel>=6.26.0
-
-# BERTopic (opcional - requiere C++ build tools para instalar)
-# Para instalar: https://visualstudio.microsoft.com/visual-cpp-build-tools/
-bertopic>=0.16.0
+# MACHINE LEARNING / TOPIC MODELLING (BERT + KMeans)
 scikit-learn>=1.0.0
+sentence-transformers>=2.2.2
+torch>=2.0.0          # Necesario para sentence-transformers
+torchvision>=0.15.0   # Recomendado
+torchaudio>=2.0.0     # Recomendado
+
+# UTILIDADES
+Pillow>=10.1.0
+tqdm>=4.66.1
+
+# EXPORTACIÓN / HTML VISUALS
+kaleido>=0.2.1
